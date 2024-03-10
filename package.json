@@ -1,0 +1,20 @@
+{
+  "name": "calendar-events-management",
+  "version": "1.0.0",
+  "description": "Very basic calendar event management project, like Google Calendar. ",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "cd packages/frontend && npm install",
+    "server-install": "cd packages/backend && npm install",
+    "postinstall": "concurrently \"npm run server-install\" \"npm run client-install\"",
+
+    "client": "cd packages/frontend && npm start",
+    "server": "cd packages/backend && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Rasel Karim",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
