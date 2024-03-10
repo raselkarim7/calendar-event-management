@@ -12,5 +12,5 @@ npm start
 
 ### These commands will 
 - Install **concurrently** package in root directory
-- Install related dependencies inside the **packages/backend** and **packages/frontend** directory. 
+- Install related dependencies inside the [**packages/backend**](/packages/backend/) and [**packages/frontend**](/packages/frontend/) directory. 
 - And then will **run** both **backend** and **frontend**. 
