@@ -1,19 +1,29 @@
 const dotenv = require('dotenv')
 const express = require('express')
+const bodyParser = require('body-parser')
+
 const connectDB = require('./db/connect')
 
+const calenderEventsRoutes = require('./routes/calendar-events')
+
+const notFound = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
+
+
+
 const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //Load env vars
 dotenv.config({ path: ".env" });
 
 // routes
-const calenderEventsRoutes = require('./routes/calendar-events')
 app.use('/api/v1', calenderEventsRoutes)
 
 // middleware 
-const notFound = require('./middleware/not-found')
 app.use(notFound)
+app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5000
 const start = async () => {
