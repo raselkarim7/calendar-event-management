@@ -1,2 +1,1 @@
-# Backend
-## of Calendar Events Management 
+# Backend of *Calendar Events Management*

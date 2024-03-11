@@ -1,2 +1,2 @@
-# Frontend
-## of Calendar Events Management 
+# Frontend of *Calendar Events Management*
+
