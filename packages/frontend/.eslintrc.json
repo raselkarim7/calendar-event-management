@@ -1,0 +1,117 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    ".eslintrc.json",
+    "*.d.ts",
+    "*.config.js"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "react-refresh"
+  ],
+  "rules": {
+    "react-refresh/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true
+      },
+    ],
+    "no-console": "warn",
+    "semi": "off",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "consistent-return": "error",
+    "max-len": [
+      "warn",
+      {
+        "code": 120,
+        "tabWidth": 2
+      }
+    ],
+    "max-lines": [
+      "warn",
+      {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 0
+      }
+    ],
+    "no-empty-function": "off",
+    "no-var": "off",
+    "no-unused-vars": [
+      1,
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-return-assign": [
+      "error",
+      "always"
+    ],
+    "no-unneeded-ternary": "warn",
+    "no-unused-expressions": "warn",
+    "no-confusing-arrow": "warn",
+    // import
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/no-mutable-exports": "warn",
+    "import/no-self-import": "warn",
+    // react
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "react/no-unused-prop-types": "warn",
+    "react/button-has-type": "warn",
+    "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
+    "react/require-default-props": "off",
+
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "suffix": ["Interface"]
+      },
+      {
+        "selector": "typeAlias",
+        "format": ["PascalCase"],
+        "suffix": ["Type"]
+      }
+    ],
+    "@typescript-eslint/default-param-last": "error",
+    "@typescript-eslint/no-require-imports": "warn",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "@typescript-eslint/no-throw-literal": "error",
+
+  },
+}
