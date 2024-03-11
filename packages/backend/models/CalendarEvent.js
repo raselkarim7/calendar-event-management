@@ -28,15 +28,13 @@ const CalendarEventSchema = new mongoose.Schema({
   startTime: {
     type: String, // Example: 18:00:00 // https://stackoverflow.com/a/56537756
     required: [ function () {
-      console.log('startTime thisssssssssssssssssssssssssssssssssssssssssssssssssssssss: ', this)
-      return !this.isFullday
+      return !this.get('isFullday')
     }, 'Must have start time']
   }, 
   endTime: {
     type: String, // Example: 18:00:00 // https://stackoverflow.com/a/56537756
     required: [(function () {
-      console.log('endTime thisssssssssssssssssssssssssssssssssssssssssssssssssssssssss: ', this)
-      return !this.isFullday
+      return !this.get('isFullday')
     }), 'Must have end time'],
   }, 
   description: {
