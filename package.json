@@ -2,8 +2,14 @@
   "name": "calendar-events-management",
   "version": "1.0.0",
   "description": "Very basic calendar event management project, like Google Calendar. ",
-  "main": "index.js",
+  "private": true,
+  "engines": {
+    "yarn": "please-use-npm",
+    "node": ">=18.17.1",
+    "npm": ">=8.19.4"
+  },
   "scripts": {
+    "preinstall": "npx only-allow npm",
     "client-install": "cd packages/frontend && npm install",
     "server-install": "cd packages/backend && npm install",
     "postinstall": "concurrently \"npm run server-install\" \"npm run client-install\"",
