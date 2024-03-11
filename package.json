@@ -7,14 +7,17 @@
     "client-install": "cd packages/frontend && npm install",
     "server-install": "cd packages/backend && npm install",
     "postinstall": "concurrently \"npm run server-install\" \"npm run client-install\"",
-
     "client": "cd packages/frontend && npm start",
     "server": "cd packages/backend && npm start",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "prepare": "husky"
   },
   "author": "Rasel Karim",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11"
   }
 }

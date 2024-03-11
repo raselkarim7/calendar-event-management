@@ -1,0 +1,1 @@
+cd packages/frontend && npm run build

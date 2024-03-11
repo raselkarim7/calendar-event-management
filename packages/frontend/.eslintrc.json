@@ -11,28 +11,31 @@
     "plugin:react/recommended",
     "prettier"
   ],
-  "ignorePatterns": [
-    ".eslintrc.json",
-    "*.d.ts",
-    "*.config.js"
-  ],
+  "ignorePatterns": [".eslintrc.json", "*.d.ts", "*.config.js"],
+  "globals": {
+    "React": "readonly"
+  },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "react-refresh"
-  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    },
+    "sourceType": "module",
+    "project": "tsconfig.eslint.json"
+  },
+  "plugins": ["react-refresh"],
   "rules": {
     "react-refresh/only-export-components": [
       "warn",
       {
         "allowConstantExport": true
-      },
+      }
     ],
     "no-console": "warn",
     "semi": "off",
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "consistent-return": "error",
     "max-len": [
       "warn",
@@ -65,36 +68,21 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-return-assign": [
-      "error",
-      "always"
-    ],
+    "no-return-assign": ["error", "always"],
     "no-unneeded-ternary": "warn",
     "no-unused-expressions": "warn",
     "no-confusing-arrow": "warn",
-    // import
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true
-      }
-    ],
-    "import/no-mutable-exports": "warn",
-    "import/no-self-import": "warn",
     // react
     "react/jsx-filename-extension": [
       "error",
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "react/no-unused-prop-types": "warn",
     "react/button-has-type": "warn",
     "react/jsx-first-prop-new-line": ["warn", "multiline-multiprop"],
     "react/require-default-props": "off",
-
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -111,7 +99,6 @@
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/no-require-imports": "warn",
     "@typescript-eslint/no-non-null-assertion": "warn",
-    "@typescript-eslint/no-throw-literal": "error",
-
-  },
+    "@typescript-eslint/no-throw-literal": "error"
+  }
 }
