@@ -33,7 +33,7 @@ const BaseLayout = ({ children }: LayoutInterface) => {
         }}
       />
       <StyledMainDiv>
-        {showSidebar && <Sidebar />}
+        {<Sidebar showSidebar={showSidebar} />}
         <StyledChildrenContainer ownerState={{ sidebarOpen: showSidebar }}>{children}</StyledChildrenContainer>
       </StyledMainDiv>
     </ThemeProvider>

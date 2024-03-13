@@ -21,9 +21,12 @@ const StyledStaticDatePicker = styled(StaticDatePicker)(() => ({
   },
 }));
 
-const Sidebar = () => {
+interface PropsInterface {
+  showSidebar: boolean;
+}
+const Sidebar = ({ showSidebar }: PropsInterface) => {
   return (
-    <StyledDiv>
+    <StyledDiv id='calendar-sidebar' style={{ display: showSidebar ? 'block' : 'none' }}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <StyledStaticDatePicker
           defaultValue={dayjs('2022-04-17')}

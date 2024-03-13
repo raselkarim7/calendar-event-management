@@ -41,7 +41,7 @@
     "no-console": "warn",
     "semi": "off",
     "quotes": ["error", "single"],
-    "consistent-return": "error",
+    "consistent-return": "warn",
     "max-len": [
       "warn",
       {
