@@ -39,7 +39,7 @@ interface PropsInterface {
 
 const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
   return (
-    <StyledAppBar position='static'>
+    <StyledAppBar position='fixed'>
       <Toolbar>
         <IconButton size='large' edge='start' aria-label='menu' sx={{ mr: 2 }} onClick={onClickMenu}>
           <MenuIcon />

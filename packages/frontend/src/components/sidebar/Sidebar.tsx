@@ -5,9 +5,10 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import dayjs from 'dayjs';
 
 const StyledDiv = styled('div')(({ theme }) => ({
-  width: '320px',
+  width: 'var(--sidebar-width)',
   background: theme.app.color.titanWhite,
   height: '100%',
+  position: 'fixed',
 }));
 
 const StyledStaticDatePicker = styled(StaticDatePicker)(() => ({

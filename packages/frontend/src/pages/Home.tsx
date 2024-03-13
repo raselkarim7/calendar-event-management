@@ -1,12 +1,7 @@
-import { BaseLayout } from '@/layouts';
+import { Calendar } from '@/components/Calendar';
+
 const Home = () => {
-  return (
-    <BaseLayout>
-      <div>
-        <h1>Home Page</h1>
-      </div>
-    </BaseLayout>
-  );
+  return <Calendar />;
 };
 
 export default Home;

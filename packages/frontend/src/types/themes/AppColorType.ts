@@ -10,6 +10,6 @@ export type AppColorType =
   | 'whiteSmoke'
   | 'davyGrey'
   | 'lightGrey'
-  | 'silverSand'
-  | 'aliceBlue'
+  | 'paleSky'
+  | 'moonMist'
   | 'titanWhite';

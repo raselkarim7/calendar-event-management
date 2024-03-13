@@ -10,7 +10,17 @@ import { LayoutInterface } from '@/types';
 const StyledMainDiv = styled('div')(() => ({
   display: 'flex',
   height: 'calc(100vh - var(--navbar-height) - 1px)',
+  marginTop: 'calc(var(--navbar-height) + 1px)',
 }));
+interface ChildrenContainerOwnerStateInterface {
+  sidebarOpen: boolean;
+}
+const StyledChildrenContainer = styled('div')<{ ownerState: ChildrenContainerOwnerStateInterface }>(
+  ({ ownerState }) => ({
+    width: '100%',
+    marginLeft: ownerState.sidebarOpen ? 'var(--sidebar-width)' : '0px',
+  }),
+);
 
 const BaseLayout = ({ children }: LayoutInterface) => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -24,7 +34,7 @@ const BaseLayout = ({ children }: LayoutInterface) => {
       />
       <StyledMainDiv>
         {showSidebar && <Sidebar />}
-        <div>{children}</div>
+        <StyledChildrenContainer ownerState={{ sidebarOpen: showSidebar }}>{children}</StyledChildrenContainer>
       </StyledMainDiv>
     </ThemeProvider>
   );

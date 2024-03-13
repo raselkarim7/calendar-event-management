@@ -59,12 +59,12 @@ export default createTheme({
     },
     h3: {
       fontSize: '32px',
-      fontWeight: 700,
+      fontWeight: 400,
       lineHeight: '1.4',
     },
     h4: {
       fontSize: '24px',
-      fontWeight: 700,
+      fontWeight: 500,
       lineHeight: '1.4',
     },
     inputText: inputTextTypography,

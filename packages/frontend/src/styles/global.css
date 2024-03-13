@@ -10,6 +10,7 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   --navbar-height: 64px;
+  --sidebar-width: 320px;
 }
 
 body {

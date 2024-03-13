@@ -14,8 +14,8 @@ const customColors: Record<AppColorType, CSSProperties['color']> = {
   whiteSmoke: '#F5F5F5',
   davyGrey: '#595959',
   lightGrey: '#D9D9D9',
-  silverSand: '#BFBFBF',
-  aliceBlue: '#EDF5FF',
+  paleSky: '#70757a', //
+  moonMist: '#DBDBDB',
   titanWhite: '#E6F1FE',
 };
 
