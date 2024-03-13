@@ -1,46 +1,71 @@
+import { Button, styled } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import React from 'react';
-import { styled } from '@mui/material';
 
-const StyledAppBar = styled(AppBar)(() => ({
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+
+import CalenderLogo from '@/assets/calendar-logo.png';
+import { CustomDatePicker } from '../CustomDatePicker';
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  boxShadow: 'none',
+  borderBottom: `1px solid  ${theme.app.color.lightGrey}`,
   '& .MuiToolbar-root': {
     minHeight: 'var(--navbar-height)',
+    background: theme.app.color.white,
   },
 }));
 
+const StyledLogo = styled('img')(() => ({
+  width: '48px',
+  height: '48px',
+}));
+
+const StyledNavigationContianer = styled('div')(() => ({
+  margin: '0px 8px',
+  display: 'flex',
+  gap: '4px',
+  alignItems: 'center',
+}));
+
 interface PropsInterface {
+  sidebarOpen: boolean;
   onClickMenu: (e: React.SyntheticEvent) => void;
 }
 
-const Navbar = ({ onClickMenu }: PropsInterface) => {
+const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
   return (
     <StyledAppBar position='static'>
       <Toolbar>
-        <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }} onClick={onClickMenu}>
+        <IconButton size='large' edge='start' aria-label='menu' sx={{ mr: 2 }} onClick={onClickMenu}>
           <MenuIcon />
         </IconButton>
-        <Typography variant='body1' component='div' sx={{ flexGrow: 1 }}>
-          Photos
-        </Typography>
 
-        <div>
-          <IconButton
-            size='large'
-            aria-label='account of current user'
-            aria-controls='menu-appbar'
-            aria-haspopup='true'
-            onClick={() => {}}
-            color='inherit'
-          >
-            <AccountCircle />
+        <StyledLogo src={CalenderLogo} alt='Calender logo' />
+        <Typography variant='subtitle1'>Calendar</Typography>
+
+        <StyledNavigationContianer>
+          <IconButton size='medium' aria-label='left arrow' onClick={() => {}}>
+            <KeyboardArrowLeftIcon />
           </IconButton>
-        </div>
+          <Button size='large' variant='outlined' color='secondary' onClick={() => {}}>
+            Today
+          </Button>
+          <IconButton size='medium' aria-label='right arrow' onClick={() => {}}>
+            <KeyboardArrowRight />
+          </IconButton>
+        </StyledNavigationContianer>
+
+        <CustomDatePicker
+          date={new Date().toString()}
+          onChange={() => {}}
+          disabled={sidebarOpen}
+          isDisableFuture={false}
+        />
       </Toolbar>
     </StyledAppBar>
   );

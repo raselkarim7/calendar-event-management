@@ -20,6 +20,7 @@ export default createTheme({
       lg: 1366,
     },
   },
+
   palette: {
     primary: {
       main: appCustomTheme.color.brightBlue as string,
@@ -36,6 +37,10 @@ export default createTheme({
     },
     error: {
       main: appCustomTheme.color.scarletRed as string,
+      contrastText: appCustomTheme.color.white as string,
+    },
+    secondary: {
+      main: appCustomTheme.color.blackEel as string,
       contrastText: appCustomTheme.color.white as string,
     },
   },
@@ -69,8 +74,8 @@ export default createTheme({
       textTransform: 'inherit',
     },
     subtitle1: {
-      fontSize: '16px',
-      fontWeight: 500,
+      fontSize: '24px',
+      fontWeight: 400,
     },
     copyright: {
       fontSize: '14px',
@@ -81,6 +86,49 @@ export default createTheme({
     body1: {
       fontSize: '14px',
       fontWeight: 400,
+    },
+  },
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { size: 'large' },
+          style: {
+            height: '40px',
+            padding: '6px 16px',
+          },
+        },
+        {
+          props: { size: 'medium' },
+          style: {
+            height: '40px',
+            padding: '4px 12px',
+            fontSize: '14px',
+            fontWeight: 700,
+          },
+        },
+        {
+          props: { size: 'small' },
+          style: {
+            height: '30px',
+            padding: '4px 10px',
+            fontWeight: 500,
+            fontSize: '14px',
+          },
+        },
+      ],
+      defaultProps: {
+        fullWidth: true,
+        size: 'large',
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: '4px',
+          ':hover': {
+            borderColor: theme.app.color.lightGrey,
+          },
+        }),
+      },
     },
   },
 });
