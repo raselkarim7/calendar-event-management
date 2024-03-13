@@ -4,6 +4,11 @@
     "browser": true,
     "es2020": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -99,6 +104,7 @@
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/no-require-imports": "warn",
     "@typescript-eslint/no-non-null-assertion": "warn",
-    "@typescript-eslint/no-throw-literal": "error"
+    "@typescript-eslint/no-throw-literal": "error",
+    "@typescript-eslint/ban-ts-comment": ["error", { "ts-ignore": "allow-with-description" }]
   }
 }

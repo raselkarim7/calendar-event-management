@@ -9,6 +9,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  --navbar-height: 64px;
 }
 
 body {
@@ -19,11 +20,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-.simplebar-wrapper {
-  padding: 0 !important;
-}
-.simplebar-track {
-  width: 9px !important;
-  padding: 0 1px !important;
 }
