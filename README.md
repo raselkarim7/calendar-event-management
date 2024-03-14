@@ -25,3 +25,8 @@ Frontend: http://localhost:3000/
 - **Frontend: Just completed the design. Functionalities will be added later.** 
 
 ![alt text](image.png)
+
+### Tools
+- husky added 
+- huskyy will run linter in **Frontend** part while **pre-commit**, and check the linter  
+- Also husky will build the **Frontend** while **pre-push** and won't push in case of build failure. 
