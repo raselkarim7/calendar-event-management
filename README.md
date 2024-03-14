@@ -14,3 +14,14 @@ npm start
 - Install **concurrently** package in root directory
 - Install related dependencies inside the [**packages/backend**](/packages/backend/) and [**packages/frontend**](/packages/frontend/) directory. 
 - And then will **run** both **backend** and **frontend**. 
+
+### After running the project, URL:
+Backend: http://localhost:5000/
+<br />
+Frontend: http://localhost:3000/
+
+### Note
+- **Backend: Implementation is done**
+- **Frontend: Just completed the design. Functionalities will be added later.** 
+
+![alt text](image.png)

@@ -10,7 +10,7 @@ const customColors: Record<AppColorType, CSSProperties['color']> = {
   blackEel: '#434343',
   dirtyOrange: '#C57600',
   scarletRed: '#B90002',
-  alabaster: '#F9F9FB',
+  alabaster: '#E9E9EB',
   whiteSmoke: '#F5F5F5',
   davyGrey: '#595959',
   lightGrey: '#D9D9D9',

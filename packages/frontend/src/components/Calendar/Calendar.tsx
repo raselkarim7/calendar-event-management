@@ -5,14 +5,15 @@ import DaysHeader from './DaysHeader';
 import { useEffect, useRef, useState } from 'react';
 
 const StyledDaysHeaderContainer = styled('div')(() => ({
-  width: 'calc(100% - 70px - 11px)', // 11px is thin scrollbar width.
-  marginLeft: '70px',
+  width: 'calc(100% - 70px)',
+  marginLeft: '69px',
+  overflowY: 'scroll',
+  scrollbarWidth: 'thin',
 }));
 
 const StyledDaysContainer = styled('div')(() => ({
   width: '100%',
   padding: '0px 0px 2px 0px',
-  // height: 'calc(100vh - 212px - 4px)',
   height: '200px',
   overflowY: 'scroll',
   scrollbarWidth: 'thin',
@@ -38,11 +39,11 @@ const Calendar = () => {
       // Do what you want to do when the size of the element changes
       if (headerRef.current && calendarRef.current) {
         const { offsetHeight, offsetTop } = headerRef.current;
-        const calenderTopBottomPadding = 4;
-        const upperPixel = offsetHeight + offsetTop + calenderTopBottomPadding;
+        const calenderBottomPadding = 2;
+        const upperPixel = offsetHeight + offsetTop + calenderBottomPadding;
         calendarRef.current.style.height = `calc(100vh - ${upperPixel}px)`;
         if (fullDayEventsContainerHeight === 0) {
-          setFullDayEventsContainerHeight(Math.abs(offsetHeight - offsetTop));
+          setFullDayEventsContainerHeight(Math.abs(offsetHeight - offsetTop + 16));
         }
       }
     });

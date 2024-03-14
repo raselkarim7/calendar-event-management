@@ -18,11 +18,23 @@ const StyledDayLabelAndFullDayContainer = styled('div')(() => ({
   flexBasis: 0,
 }));
 
-const StyledDayLabel = styled('div')(() => ({
+const StyledDayLabel = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  '& h4': {
+    cursor: 'pointer',
+    width: '40px',
+    height: '40px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover': {
+      background: theme.app.color.alabaster,
+      borderRadius: '100%',
+    },
+  },
 }));
 
 const StyledFullDayEventsContainer = styled('div')<{ ownerState: StyledFullDayEventsContainerOwnerStateInterface }>(
@@ -34,7 +46,9 @@ const StyledFullDayEventsContainer = styled('div')<{ ownerState: StyledFullDayEv
     minHeight: ownerState.minHeight ? `${ownerState.minHeight}px` : '20px',
     borderLeft: `1px solid ${theme.app.color.moonMist}`,
     borderBottom: `1px solid ${theme.app.color.moonMist}`,
-    marginLeft: '-1px',
+    padding: '5px',
+    boxSizing: 'content-box',
+    cursor: 'pointer',
   }),
 );
 interface PropsInterface {
@@ -50,14 +64,17 @@ const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
               {' '}
               {dayName}{' '}
             </Typography>
-            <Typography variant='h3'> 12 </Typography>
+            <Typography variant='h4' color={customColors.paleSky}>
+              {' '}
+              {index + 8}
+            </Typography>
           </StyledDayLabel>
           <StyledFullDayEventsContainer ownerState={{ minHeight: fullDayEventsContainerHeight }}>
             {dayName === 'TUE' && (
-              <Typography variant='body1' padding={'5px'} style={{ wordBreak: 'break-all' }}>
+              <Typography style={{ wordBreak: 'break-all' }}>
                 {index % 2 === 0
-                  ? 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                  : 'eeeeeeeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'}
+                  ? 'Lorem ipsum dolor sit met there is no such thing psum dolor sit met there is no such thing as pain itself'
+                  : 'xyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyz'}
               </Typography>
             )}
           </StyledFullDayEventsContainer>

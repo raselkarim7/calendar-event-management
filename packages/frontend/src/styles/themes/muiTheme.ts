@@ -58,13 +58,13 @@ export default createTheme({
       lineHeight: '1.6',
     },
     h3: {
-      fontSize: '32px',
+      fontSize: '28px',
       fontWeight: 400,
       lineHeight: '1.4',
     },
     h4: {
       fontSize: '24px',
-      fontWeight: 500,
+      fontWeight: 400,
       lineHeight: '1.4',
     },
     inputText: inputTextTypography,
