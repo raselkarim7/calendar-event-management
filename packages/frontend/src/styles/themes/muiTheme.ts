@@ -130,5 +130,28 @@ export default createTheme({
         }),
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: appCustomTheme.color.blackEel,
+        },
+        input: {
+          fontSize: '22px',
+          padding: '4px 0px',
+        },
+        inputSizeSmall: {
+          fontSize: '16px',
+        },
+      },
+    },
+
+    MuiTextField: {
+      defaultProps: {
+        fullWidth: true,
+        InputLabelProps: {
+          shrink: false,
+        },
+      },
+    },
   },
 });

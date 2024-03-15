@@ -9,7 +9,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import CalenderLogo from '@/assets/calendar-logo.png';
-import { CustomDatePicker } from '../CustomDatePicker';
+import { CustomDatePicker } from '@/components/ui/CustomDatePicker';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',

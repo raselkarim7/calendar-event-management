@@ -8,7 +8,7 @@ export type AppColorType =
   | 'scarletRed'
   | 'alabaster'
   | 'whiteSmoke'
-  | 'davyGrey'
+  | 'bluishCyan'
   | 'lightGrey'
   | 'paleSky'
   | 'moonMist'
