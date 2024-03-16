@@ -33,7 +33,7 @@ const Calendar = () => {
   const [previousSidebarWidth, setPreviousSidebarWidth] = useState(0);
   const [fullDayEventsContainerHeight, setFullDayEventsContainerHeight] = useState(0);
 
-  const [eventModal, setEventModal] = useState(false);
+  const [eventModal, setEventModal] = useState(true);
 
   // calculated the height of the DyasHeader container based on Calendear Date + full day events height after rending.
   // and that based on that height, we set the height of calenderRef
@@ -100,19 +100,6 @@ const Calendar = () => {
       >
         <>
           <EventForm />
-          <h1>
-            1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nesciunt soluta possimus, expedita natus
-            sed dolorum pariatur. Libero, tenetur enim. Doloribus blanditiis consequuntur animi repudiandae consequatur,
-            sequi necessitatibus saepe ex eaque, obcaecati atque ut nesciunt ducimus quo nobis hic, voluptatibus eum
-            similique quos commodi! Quibusdam eveniet officiis accusantium autem vero?
-          </h1>
-          <h1>======== ========== ======= ===========</h1>
-          <h1>
-            2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nesciunt soluta possimus, expedita natus
-            sed dolorum pariatur. Libero, tenetur enim. Doloribus blanditiis consequuntur animi repudiandae consequatur,
-            sequi necessitatibus saepe ex eaque, obcaecati atque ut nesciunt ducimus quo nobis hic, voluptatibus eum
-            similique quos commodi! Quibusdam eveniet officiis accusantium autem vero?
-          </h1>
         </>
       </CustomModal>
     </>

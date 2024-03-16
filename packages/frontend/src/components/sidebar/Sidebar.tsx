@@ -1,8 +1,5 @@
 import { styled } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import dayjs from 'dayjs';
+import { PlainDatePicker } from '@/components/ui/PlainDatePicker';
 
 const StyledDiv = styled('div')(({ theme }) => ({
   width: 'var(--sidebar-width)',
@@ -11,30 +8,18 @@ const StyledDiv = styled('div')(({ theme }) => ({
   position: 'fixed',
 }));
 
-const StyledStaticDatePicker = styled(StaticDatePicker)(() => ({
-  background: 'inherit',
-  '& .MuiPickersToolbar-root': {
-    display: 'none',
-  },
-  '& .MuiDialogActions-root': {
-    display: 'none',
-  },
-}));
-
 interface PropsInterface {
   showSidebar: boolean;
 }
 const Sidebar = ({ showSidebar }: PropsInterface) => {
   return (
     <StyledDiv id='calendar-sidebar' style={{ display: showSidebar ? 'block' : 'none' }}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StyledStaticDatePicker
-          defaultValue={dayjs('2022-04-17')}
-          onChange={val => {
-            console.log('Sidebar datepicker: ', val);
-          }}
-        />
-      </LocalizationProvider>
+      <PlainDatePicker
+        value={new Date('02-02-2002')}
+        onChange={() => {
+          console.log('indie sidebar plain date picker');
+        }}
+      />
     </StyledDiv>
   );
 };

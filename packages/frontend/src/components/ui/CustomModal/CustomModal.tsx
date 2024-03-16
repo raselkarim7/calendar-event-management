@@ -1,6 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import { styled } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { createPortal } from 'react-dom';
 
 const StyledModalContainer = styled('div')(({ theme }) => ({
   background: theme.app.color.white,
@@ -34,8 +35,9 @@ const StyledDialogHeader = styled('div')(({ theme }) => ({
 }));
 
 const StyledChildrenContainer = styled('div')(() => ({
+  width: '100%',
   padding: '16px',
-  height: 'calc(100vh - 100px)',
+  height: 'min( calc(100vh - 100px), 700px)',
   overflow: 'auto',
   scrollbarWidth: 'thin',
 }));
@@ -46,7 +48,7 @@ interface PropsInterface {
   children: React.ReactElement;
 }
 const CustomModal = ({ open, onClose, children }: PropsInterface) => {
-  return (
+  return createPortal(
     <Dialog open={open} onClose={onClose}>
       <>
         <StyledModalContainer>
@@ -58,7 +60,8 @@ const CustomModal = ({ open, onClose, children }: PropsInterface) => {
           <StyledChildrenContainer>{children}</StyledChildrenContainer>
         </StyledModalContainer>
       </>
-    </Dialog>
+    </Dialog>,
+    document.body,
   );
 };
 

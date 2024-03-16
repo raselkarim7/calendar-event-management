@@ -46,7 +46,7 @@ export default createTheme({
   },
   typography: {
     fontFamily: 'Roboto',
-    htmlFontSize: 14,
+    htmlFontSize: 12,
     allVariants: {
       color: appCustomTheme.color.blackEel,
       lineHeight: '23px',
@@ -84,7 +84,7 @@ export default createTheme({
     },
 
     body1: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: 400,
     },
   },
@@ -150,6 +150,38 @@ export default createTheme({
         fullWidth: true,
         InputLabelProps: {
           shrink: false,
+        },
+      },
+    },
+    MuiCheckbox: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          padding: '0px 6px',
+          '& .MuiSvgIcon-root': {
+            fontSize: '24px',
+          },
+        },
+      },
+    },
+
+    MuiFormControlLabel: {
+      defaultProps: {},
+      styleOverrides: {
+        label: {
+          fontSize: '16px',
+        },
+      },
+    },
+
+    MuiList: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          scrollbarWidth: 'thin',
+          '& .MuiMenuItem-root': {
+            fontSize: '16px',
+          },
         },
       },
     },
