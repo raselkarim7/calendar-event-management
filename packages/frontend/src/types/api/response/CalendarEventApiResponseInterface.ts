@@ -1,7 +1,6 @@
-export type DayNameType = 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
-
-export interface CalendarEventInterface {
+export interface CalendarEventApiResponseInterface {
   _id: string;
+  __v: number;
   title: string;
   startDate: Date;
   isFullday: boolean;

@@ -1,13 +1,16 @@
 import { ThemeProvider } from '@emotion/react';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Provider } from 'react-redux';
+import { reduxStore } from '@/store';
+
 import { styled } from '@mui/material';
 import { useState } from 'react';
 
 import { Navbar, Sidebar } from '@/components';
 import { muiTheme } from '@/styles/themes';
 import { LayoutInterface } from '@/types';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const StyledMainDiv = styled('div')(() => ({
   display: 'flex',
@@ -29,16 +32,18 @@ const BaseLayout = ({ children }: LayoutInterface) => {
   return (
     <ThemeProvider theme={muiTheme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Navbar
-          sidebarOpen={showSidebar}
-          onClickMenu={() => {
-            setShowSidebar(prev => !prev);
-          }}
-        />
-        <StyledMainDiv>
-          {<Sidebar showSidebar={showSidebar} />}
-          <StyledChildrenContainer ownerState={{ sidebarOpen: showSidebar }}>{children}</StyledChildrenContainer>
-        </StyledMainDiv>
+        <Provider store={reduxStore}>
+          <Navbar
+            sidebarOpen={showSidebar}
+            onClickMenu={() => {
+              setShowSidebar(prev => !prev);
+            }}
+          />
+          <StyledMainDiv>
+            {<Sidebar showSidebar={showSidebar} />}
+            <StyledChildrenContainer ownerState={{ sidebarOpen: showSidebar }}>{children}</StyledChildrenContainer>
+          </StyledMainDiv>
+        </Provider>
       </LocalizationProvider>
     </ThemeProvider>
   );

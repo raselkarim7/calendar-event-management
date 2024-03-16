@@ -7,12 +7,17 @@ import EventForm from './Forms/EventForm';
 import { useFullDayEventsContainerHeight } from '@/components/hooks';
 
 import { StyledDaysHeaderContainer, StyledDaysContainer, StyledDays } from './Styled/StyledCalendar';
+import { useGetCalenderEventsQuery } from '@/services';
 
 const Calendar = () => {
+  const { data, error } = useGetCalenderEventsQuery();
+
+  console.log('data ----------->>> ', data);
+  console.log('error ::::::::::::: ', error);
+
   const headerRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   const fullDayEventsContainerHeight = useFullDayEventsContainerHeight(headerRef, calendarRef);
-
   const [eventModal, setEventModal] = useState(true);
 
   const handleCalendarEvent = () => {
