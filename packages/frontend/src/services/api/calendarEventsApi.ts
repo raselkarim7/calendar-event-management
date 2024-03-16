@@ -7,9 +7,9 @@ import { transformCalenderAllEventsResponse, transformErrorResponse } from '../a
 export const calendarEventsApi = api.injectEndpoints({
   endpoints: builder => ({
     // GET all calender events
-    getCalenderEvents: builder.query<CalendarEventInterface[], void>({
-      query: (): FetchArgs => ({
-        url: '/calendar-events',
+    getCalenderEvents: builder.query<CalendarEventInterface[], { startDay?: Date; endDay?: Date }>({
+      query: ({ startDay, endDay }): FetchArgs => ({
+        url: startDay && endDay ? `/calendar-events?startDay=${startDay}&endDay=${endDay}` : '/calendar-events',
       }),
       transformResponse: transformCalenderAllEventsResponse,
       transformErrorResponse,

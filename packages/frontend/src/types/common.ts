@@ -13,3 +13,10 @@ export interface CalendarEventInterface {
   note?: string;
   endDate?: Date;
 }
+
+export interface FullWeekDaysObjInterface {
+  [key: string]: {
+    date: Date;
+    isToday: boolean;
+  };
+}

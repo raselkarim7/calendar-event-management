@@ -1,5 +1,5 @@
 import EachDay from './EachDay';
-import { SEVEN_DAYS } from '@/utils';
+import { SEVEN_DAYS, getFullWeekDatesByCurrentDate } from '@/utils';
 import DaysHeader from './DaysHeader';
 import { useRef, useState } from 'react';
 import CustomModal from '../ui/CustomModal/CustomModal';
@@ -10,7 +10,16 @@ import { StyledDaysHeaderContainer, StyledDaysContainer, StyledDays } from './St
 import { useGetCalenderEventsQuery } from '@/services';
 
 const Calendar = () => {
-  const { data, error } = useGetCalenderEventsQuery();
+  const weekDaysObj = getFullWeekDatesByCurrentDate(new Date().toDateString());
+
+  console.log('weekDaysObj  ---------> ', weekDaysObj);
+
+  // const { data, error } = useGetCalenderEventsQuery({
+  //   startDay: new Date('2024-04-10'),
+  //   endDay: new Date('2024-05-24'),
+  // });
+
+  const { data, error } = useGetCalenderEventsQuery({});
 
   console.log('data ----------->>> ', data);
   console.log('error ::::::::::::: ', error);
