@@ -15,7 +15,11 @@ import {
   StyledSumitButtonsContainer,
 } from './Styled';
 
-const EventForm = () => {
+interface PropsInterface {
+  onClose: () => void;
+}
+
+const EventForm = (props: PropsInterface) => {
   return (
     <StyledFormContainer>
       <StyledFormFieldsContainer>
@@ -72,7 +76,9 @@ const EventForm = () => {
 
       <StyledSumitButtonsContainer>
         <StyledFlexContainer>
-          <Button variant='outlined'>Cancel</Button>
+          <Button variant='outlined' onClick={props.onClose}>
+            Cancel
+          </Button>
           <Button variant='contained'>Save</Button>
         </StyledFlexContainer>
       </StyledSumitButtonsContainer>
