@@ -53,8 +53,9 @@ const StyledFullDayEventsContainer = styled('div')<{ ownerState: StyledFullDayEv
 );
 interface PropsInterface {
   fullDayEventsContainerHeight: number;
+  handleCalendarEvent: () => void;
 }
-const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
+const DaysHeader = ({ fullDayEventsContainerHeight, handleCalendarEvent }: PropsInterface) => {
   return (
     <StyledDaysHeaderContainer>
       {SEVEN_DAYS.map((dayName, index) => (
@@ -69,7 +70,10 @@ const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
               {index + 8}
             </Typography>
           </StyledDayLabel>
-          <StyledFullDayEventsContainer ownerState={{ minHeight: fullDayEventsContainerHeight }}>
+          <StyledFullDayEventsContainer
+            ownerState={{ minHeight: fullDayEventsContainerHeight }}
+            onClick={() => handleCalendarEvent()}
+          >
             {dayName === 'TUE' && (
               <Typography style={{ wordBreak: 'break-all' }}>
                 {index % 2 === 0

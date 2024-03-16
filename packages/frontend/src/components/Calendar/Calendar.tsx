@@ -3,6 +3,8 @@ import EachDay from './EachDay';
 import { SEVEN_DAYS } from '@/utils';
 import DaysHeader from './DaysHeader';
 import { useEffect, useRef, useState } from 'react';
+import CustomModal from '../ui/CustomModal/CustomModal';
+import EventForm from './Forms/EventForm';
 
 const StyledDaysHeaderContainer = styled('div')(() => ({
   width: 'calc(100% - 70px)',
@@ -30,6 +32,8 @@ const Calendar = () => {
   const calendarRef = useRef<HTMLDivElement>(null);
   const [previousSidebarWidth, setPreviousSidebarWidth] = useState(0);
   const [fullDayEventsContainerHeight, setFullDayEventsContainerHeight] = useState(0);
+
+  const [eventModal, setEventModal] = useState(false);
 
   // calculated the height of the DyasHeader container based on Calendear Date + full day events height after rending.
   // and that based on that height, we set the height of calenderRef
@@ -66,10 +70,17 @@ const Calendar = () => {
     return () => resizeObserver.disconnect(); // clean up
   }, [previousSidebarWidth]);
 
+  const handleCalendarEvent = () => {
+    setEventModal(true);
+  };
+
   return (
     <>
       <StyledDaysHeaderContainer ref={headerRef}>
-        <DaysHeader fullDayEventsContainerHeight={fullDayEventsContainerHeight} />
+        <DaysHeader
+          handleCalendarEvent={handleCalendarEvent}
+          fullDayEventsContainerHeight={fullDayEventsContainerHeight}
+        />
       </StyledDaysHeaderContainer>
 
       <StyledDaysContainer ref={calendarRef}>
@@ -79,6 +90,31 @@ const Calendar = () => {
           ))}
         </StyledDays>
       </StyledDaysContainer>
+
+      <CustomModal
+        open={eventModal}
+        onClose={() => {
+          console.log('onClose called.');
+          setEventModal(false);
+        }}
+      >
+        <>
+          <EventForm />
+          <h1>
+            1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nesciunt soluta possimus, expedita natus
+            sed dolorum pariatur. Libero, tenetur enim. Doloribus blanditiis consequuntur animi repudiandae consequatur,
+            sequi necessitatibus saepe ex eaque, obcaecati atque ut nesciunt ducimus quo nobis hic, voluptatibus eum
+            similique quos commodi! Quibusdam eveniet officiis accusantium autem vero?
+          </h1>
+          <h1>======== ========== ======= ===========</h1>
+          <h1>
+            2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nesciunt soluta possimus, expedita natus
+            sed dolorum pariatur. Libero, tenetur enim. Doloribus blanditiis consequuntur animi repudiandae consequatur,
+            sequi necessitatibus saepe ex eaque, obcaecati atque ut nesciunt ducimus quo nobis hic, voluptatibus eum
+            similique quos commodi! Quibusdam eveniet officiis accusantium autem vero?
+          </h1>
+        </>
+      </CustomModal>
     </>
   );
 };
