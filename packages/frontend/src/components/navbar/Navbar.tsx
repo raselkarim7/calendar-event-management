@@ -9,7 +9,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import CalenderLogo from '@/assets/calendar-logo.png';
-import { CustomDatePicker } from '@/components/ui/RegularDatePicker';
+import { RegularDatePicker } from '@/components/ui/RegularDatePicker';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -60,11 +60,12 @@ const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
           </IconButton>
         </StyledNavigationContianer>
 
-        <CustomDatePicker
+        <RegularDatePicker
           date={new Date().toString()}
           onChange={() => {}}
           disabled={sidebarOpen}
           isDisableFuture={false}
+          showMonthYearInsideDatePickerInput={true}
         />
       </Toolbar>
     </StyledAppBar>

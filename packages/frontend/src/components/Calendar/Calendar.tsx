@@ -14,12 +14,12 @@ const Calendar = () => {
 
   console.log('weekDaysObj  ---------> ', weekDaysObj);
 
-  // const { data, error } = useGetCalenderEventsQuery({
-  //   startDay: new Date('2024-04-10'),
-  //   endDay: new Date('2024-05-24'),
-  // });
+  const { data, error } = useGetCalenderEventsQuery({
+    startDay: new Date('2024-04-10'),
+    endDay: new Date('2024-05-24'),
+  });
 
-  const { data, error } = useGetCalenderEventsQuery({});
+  // const { data, error } = useGetCalenderEventsQuery({});
 
   console.log('data ----------->>> ', data);
   console.log('error ::::::::::::: ', error);

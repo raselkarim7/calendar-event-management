@@ -70,7 +70,7 @@ const EventForm = (props: PropsInterface) => {
 
         <StyledFlexContainer>
           <div>End Date:</div>
-          <RegularDatePicker date='' onChange={() => {}} />
+          <RegularDatePicker date='2024-03-12' onChange={() => {}} />
         </StyledFlexContainer>
       </StyledFormFieldsContainer>
 

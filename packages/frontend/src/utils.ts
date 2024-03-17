@@ -36,3 +36,18 @@ export const getFullWeekDatesByCurrentDate = (currentDateStr: string): FullWeekD
   }
   return weekDaysObj;
 };
+
+export const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];

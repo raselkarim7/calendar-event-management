@@ -3,6 +3,7 @@ import { TextField, styled } from '@mui/material';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { monthNames } from '@/utils';
 
 const StyledDatePickerWrapper = styled(DatePicker)(() => ({
   width: '170px',
@@ -24,8 +25,16 @@ interface PropsInterface {
   disabled?: boolean;
   isDisableFuture?: boolean;
   maxDate?: string;
+  showMonthYearInsideDatePickerInput?: boolean;
 }
-const RegularDatePicker = ({ date, onChange, disabled = false, isDisableFuture = false, maxDate }: PropsInterface) => {
+const RegularDatePicker = ({
+  date,
+  onChange,
+  disabled = false,
+  isDisableFuture = false,
+  maxDate,
+  showMonthYearInsideDatePickerInput = false,
+}: PropsInterface) => {
   return (
     <StyledDatePickerWrapper
       disabled={disabled}
@@ -36,15 +45,22 @@ const RegularDatePicker = ({ date, onChange, disabled = false, isDisableFuture =
       onChange={val => onChange(val as any)}
       slots={{
         openPickerIcon: ArrowDropDownIcon,
-        textField: textFieldProps => (
-          <TextField
-            {...textFieldProps}
-            variant='standard'
-            onKeyDown={e => {
-              e.preventDefault();
-            }}
-          />
-        ),
+        textField: textFieldProps => {
+          return (
+            <TextField
+              {...textFieldProps}
+              value={
+                textFieldProps.value && showMonthYearInsideDatePickerInput
+                  ? `${monthNames[dayjs(textFieldProps.value as string).month()]} ${dayjs(textFieldProps.value as string).year()}`
+                  : textFieldProps.value
+              }
+              variant='standard'
+              onKeyDown={e => {
+                e.preventDefault();
+              }}
+            />
+          );
+        },
       }}
     />
   );
