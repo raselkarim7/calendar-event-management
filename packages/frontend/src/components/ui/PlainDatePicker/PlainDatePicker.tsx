@@ -13,8 +13,8 @@ const StyledStaticDatePicker = styled(StaticDatePicker)(() => ({
 }));
 
 interface PlainDatePickerInterface {
-  value: Date;
-  onChange: (param: unknown) => void;
+  value: string;
+  onChange: (param: dayjs.Dayjs | null) => void;
 }
 
 const PlainDatePicker = ({ value, onChange }: PlainDatePickerInterface) => {
@@ -23,10 +23,8 @@ const PlainDatePicker = ({ value, onChange }: PlainDatePickerInterface) => {
       <StyledStaticDatePicker
         defaultValue={dayjs(new Date())}
         value={dayjs(value)}
-        onChange={val => {
-          console.log('Plain datepicker: ', val);
-          onChange(val);
-        }}
+        // eslint-disable-nex
+        onChange={val => onChange(val as dayjs.Dayjs | null)}
       />
     </div>
   );

@@ -14,12 +14,16 @@ import {
   StyledFlexContainer,
   StyledSumitButtonsContainer,
 } from './Styled';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setAppDate } from '@/features/appSlice';
 
 interface PropsInterface {
   onClose: () => void;
 }
 
 const EventForm = (props: PropsInterface) => {
+  const selectedAppDate = useAppSelector(state => state.app.selectedAppDate);
+  const dispatch = useAppDispatch();
   return (
     <StyledFormContainer>
       <StyledFormFieldsContainer>
@@ -70,7 +74,14 @@ const EventForm = (props: PropsInterface) => {
 
         <StyledFlexContainer>
           <div>End Date:</div>
-          <RegularDatePicker date='2024-03-12' onChange={() => {}} />
+          <RegularDatePicker
+            date={selectedAppDate.toDateString()}
+            onChange={val => {
+              if (val) {
+                dispatch(setAppDate(val.toDate()));
+              }
+            }}
+          />
         </StyledFlexContainer>
       </StyledFormFieldsContainer>
 

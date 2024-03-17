@@ -22,7 +22,7 @@ const StyledDateAndCheckboxContainer = styled('div')(() => ({
   display: 'flex',
   gap: '36px',
   alignItems: 'center',
-  '& > div:nth-child(1)': {
+  '& > div:nth-of-type(1)': {
     minWidth: '150px',
   },
 }));
@@ -39,7 +39,7 @@ const StyledRepeatContainer = styled('div')(() => ({
   gap: '10px',
   justifyContent: 'space-between',
   alignItems: 'center',
-  '& > div:nth-child(1)': {
+  '& > div:nth-of-type(1)': {
     minWidth: '100px',
   },
 }));

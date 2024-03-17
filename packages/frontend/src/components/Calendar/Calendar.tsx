@@ -4,7 +4,7 @@ import DaysHeader from './DaysHeader';
 import { useRef, useState } from 'react';
 import CustomModal from '../ui/CustomModal/CustomModal';
 import EventForm from './Forms/EventForm';
-import { useFullDayEventsContainerHeight } from '@/components/hooks';
+import { useFullDayEventsContainerHeight } from '@/hooks';
 
 import { StyledDaysHeaderContainer, StyledDaysContainer, StyledDays } from './Styled/StyledCalendar';
 import { useGetCalenderEventsQuery } from '@/services';
@@ -14,12 +14,12 @@ const Calendar = () => {
 
   console.log('weekDaysObj  ---------> ', weekDaysObj);
 
-  const { data, error } = useGetCalenderEventsQuery({
-    startDay: new Date('2024-04-10'),
-    endDay: new Date('2024-05-24'),
-  });
+  // const { data, error } = useGetCalenderEventsQuery({
+  //   startDay: new Date('2024-04-10'),
+  //   endDay: new Date('2024-05-24'),
+  // });
 
-  // const { data, error } = useGetCalenderEventsQuery({});
+  const { data, error } = useGetCalenderEventsQuery({});
 
   console.log('data ----------->>> ', data);
   console.log('error ::::::::::::: ', error);

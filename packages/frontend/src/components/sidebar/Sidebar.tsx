@@ -1,5 +1,7 @@
 import { styled } from '@mui/material';
 import { PlainDatePicker } from '@/components/ui/PlainDatePicker';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setAppDate } from '@/features/appSlice';
 
 const StyledDiv = styled('div')(({ theme }) => ({
   width: 'var(--sidebar-width)',
@@ -12,12 +14,17 @@ interface PropsInterface {
   showSidebar: boolean;
 }
 const Sidebar = ({ showSidebar }: PropsInterface) => {
+  const selectedAppDate = useAppSelector(state => state.app.selectedAppDate);
+  const dispatch = useAppDispatch();
   return (
     <StyledDiv id='calendar-sidebar' style={{ display: showSidebar ? 'block' : 'none' }}>
       <PlainDatePicker
-        value={new Date('02-02-2002')}
-        onChange={() => {
-          console.log('indie sidebar plain date picker');
+        value={selectedAppDate.toDateString()}
+        onChange={val => {
+          console.log('indie sidebar plain date picker', val);
+          if (val) {
+            dispatch(setAppDate(val.toDate()));
+          }
         }}
       />
     </StyledDiv>

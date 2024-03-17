@@ -10,6 +10,9 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import CalenderLogo from '@/assets/calendar-logo.png';
 import { RegularDatePicker } from '@/components/ui/RegularDatePicker';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setAppDate } from '@/features/appSlice';
+import { addDays, subDays } from '@/utils';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -38,6 +41,9 @@ interface PropsInterface {
 }
 
 const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
+  const selectedAppDate = useAppSelector(state => state.app.selectedAppDate);
+  const dispatch = useAppDispatch();
+
   return (
     <StyledAppBar position='fixed'>
       <Toolbar>
@@ -49,23 +55,43 @@ const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
         <Typography variant='subtitle1'>Calendar</Typography>
 
         <StyledNavigationContianer>
-          <IconButton size='medium' aria-label='left arrow' onClick={() => {}}>
+          <IconButton
+            size='medium'
+            aria-label='left arrow'
+            onClick={() => {
+              const beforeSeverDayDate = subDays(selectedAppDate, 7);
+              dispatch(setAppDate(beforeSeverDayDate));
+            }}
+          >
             <KeyboardArrowLeftIcon />
           </IconButton>
           <Button size='large' variant='outlined' color='secondary' onClick={() => {}}>
-            Today
+            <Typography variant='caption' fontWeight={'bold'}>
+              {' '}
+              Today{' '}
+            </Typography>
           </Button>
-          <IconButton size='medium' aria-label='right arrow' onClick={() => {}}>
+          <IconButton
+            size='medium'
+            aria-label='right arrow'
+            onClick={() => {
+              const afterSeverDayDate = addDays(selectedAppDate, 7);
+              dispatch(setAppDate(afterSeverDayDate));
+            }}
+          >
             <KeyboardArrowRight />
           </IconButton>
         </StyledNavigationContianer>
 
         <RegularDatePicker
-          date={new Date().toString()}
-          onChange={() => {}}
+          date={selectedAppDate.toDateString()}
+          onChange={val => {
+            if (val) {
+              dispatch(setAppDate(val.toDate()));
+            }
+          }}
           disabled={sidebarOpen}
           isDisableFuture={false}
-          showMonthYearInsideDatePickerInput={true}
         />
       </Toolbar>
     </StyledAppBar>
