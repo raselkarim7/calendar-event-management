@@ -14,9 +14,17 @@ export interface CalendarEventInterface {
   endDate?: Date;
 }
 
-export interface FullWeekDaysObjInterface {
-  [key: string]: {
-    date: Date;
-    isToday: boolean;
-  };
+interface EachDayInterface {
+  date: Date;
+  isToday: boolean;
+}
+export interface FullWeekObjInterface {
+  [key: string]: EachDayInterface;
+  // SUN: EachDayInterface;
+  // MON: EachDayInterface;
+  // TUE: EachDayInterface;
+  // WED: EachDayInterface;
+  // THU: EachDayInterface;
+  // FRI: EachDayInterface;
+  // SAT: EachDayInterface;
 }

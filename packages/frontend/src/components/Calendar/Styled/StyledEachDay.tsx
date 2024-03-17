@@ -3,6 +3,11 @@ interface TimeIndicatorOwerStateInterface {
   hour: number;
 }
 
+interface StyledChipsStateInterface {
+  color?: React.CSSProperties['color'];
+  bgColor?: React.CSSProperties['color'];
+}
+
 const StyledTimeIndicator = styled('div')<{ ownerState: TimeIndicatorOwerStateInterface }>(({ theme, ownerState }) => ({
   marginTop: '-5px',
   '&::before': {
@@ -35,6 +40,19 @@ const StyledHourlyEventContainer = styled('div')(({ theme }) => ({
   wordBreak: 'break-all',
   padding: '5px',
   scrollbarWidth: 'thin',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '8px',
 }));
 
-export { StyledTimeIndicator, StyledEachDayContainer, StyledHourlyEventContainer };
+const StyledChips = styled('div')<{ ownerState: StyledChipsStateInterface }>(({ theme, ownerState }) => ({
+  borderRadius: '10px',
+  color: ownerState.color ? ownerState.color : theme.app.color.blackEel,
+  background: ownerState.bgColor ? ownerState.bgColor : theme.app.color.titanWhite,
+
+  padding: '2px 4px',
+  fontSize: '13px',
+  height: 'max-content',
+}));
+
+export { StyledTimeIndicator, StyledEachDayContainer, StyledChips, StyledHourlyEventContainer };

@@ -185,5 +185,14 @@ export default createTheme({
         },
       },
     },
+
+    MuiChip: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          fontSize: '14px',
+        },
+      },
+    },
   },
 });

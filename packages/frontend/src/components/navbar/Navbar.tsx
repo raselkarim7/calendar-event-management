@@ -12,7 +12,7 @@ import CalenderLogo from '@/assets/calendar-logo.png';
 import { RegularDatePicker } from '@/components/ui/RegularDatePicker';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setAppDate } from '@/features/appSlice';
-import { addDays, subDays } from '@/utils';
+import { addDays, getOnlyDateString, subDays } from '@/utils';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -65,7 +65,14 @@ const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
           >
             <KeyboardArrowLeftIcon />
           </IconButton>
-          <Button size='large' variant='outlined' color='secondary' onClick={() => {}}>
+          <Button
+            size='large'
+            variant='outlined'
+            color='secondary'
+            onClick={() => {
+              dispatch(setAppDate(new Date()));
+            }}
+          >
             <Typography variant='caption' fontWeight={'bold'}>
               {' '}
               Today{' '}
@@ -84,7 +91,7 @@ const Navbar = ({ sidebarOpen, onClickMenu }: PropsInterface) => {
         </StyledNavigationContianer>
 
         <RegularDatePicker
-          date={selectedAppDate.toDateString()}
+          date={getOnlyDateString(selectedAppDate)}
           onChange={val => {
             if (val) {
               dispatch(setAppDate(val.toDate()));
