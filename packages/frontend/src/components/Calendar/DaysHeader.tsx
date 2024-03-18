@@ -15,10 +15,7 @@ import { setEventForm } from '@/features/appSlice';
 
 const getColor = (isToday: boolean) => (isToday ? customColors.brightBlue : customColors.paleSky);
 
-interface PropsInterface {
-  fullDayEventsContainerHeight: number;
-}
-const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
+const DaysHeader = () => {
   const { fullWeekObj } = useAppSelector(state => state.app);
   const dispatch = useAppDispatch();
 
@@ -35,7 +32,6 @@ const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
             </StyledTypographyDate>
           </StyledDayLabel>
           <StyledFullDayEventsContainer
-            ownerState={{ minHeight: fullDayEventsContainerHeight }}
             onClick={() => {
               dispatch(
                 setEventForm({
@@ -56,8 +52,6 @@ const DaysHeader = ({ fullDayEventsContainerHeight }: PropsInterface) => {
                 onClick={e => {
                   e.stopPropagation();
                 }}
-                // label='Saved Event Title Saved Event TitleSaved Event Title'
-                // size='small'
               >
                 Full day Event Title
               </StyledChips>

@@ -1,23 +1,17 @@
 import { Typography, styled } from '@mui/material';
 
-interface StyledFullDayEventsContainerOwnerStateInterface {
-  minHeight: number;
-}
-
 interface StyledTypographyDateOwnerStateInterface {
   isToday: boolean;
 }
 
 const StyledDaysHeaderContainer = styled('div')(() => ({
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(7, 1fr)',
 }));
 
 const StyledDayLabelAndFullDayContainer = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  flexGrow: 1,
-  flexShrink: 1,
-  flexBasis: 0,
+  display: 'grid',
+  gridTemplateRows: '64px auto',
 }));
 
 const StyledDayLabel = styled('div')(() => ({
@@ -35,21 +29,19 @@ const StyledDayLabel = styled('div')(() => ({
   },
 }));
 
-const StyledFullDayEventsContainer = styled('div')<{ ownerState: StyledFullDayEventsContainerOwnerStateInterface }>(
-  ({ ownerState, theme }) => ({
-    display: 'flex',
-    gap: '8px',
-    flexWrap: 'wrap',
-    // flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: ownerState.minHeight ? `${ownerState.minHeight}px` : '20px',
-    borderLeft: `1px solid ${theme.app.color.moonMist}`,
-    borderBottom: `1px solid ${theme.app.color.moonMist}`,
-    padding: '5px',
-    boxSizing: 'content-box',
-  }),
-);
+const StyledFullDayEventsContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
+
+  // flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderLeft: `1px solid ${theme.app.color.moonMist}`,
+  borderBottom: `1px solid ${theme.app.color.moonMist}`,
+  padding: '5px',
+  boxSizing: 'content-box',
+}));
 
 const StyledTypographyDate = styled(Typography)<{ ownerState: StyledTypographyDateOwnerStateInterface }>(
   ({ ownerState, theme }) => ({
@@ -64,7 +56,6 @@ const StyledTypographyDate = styled(Typography)<{ ownerState: StyledTypographyDa
   }),
 );
 
-export type { StyledFullDayEventsContainerOwnerStateInterface };
 export {
   StyledDaysHeaderContainer,
   StyledDayLabelAndFullDayContainer,

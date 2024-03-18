@@ -22,7 +22,7 @@ const Calendar = () => {
 
   const headerRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
-  const fullDayEventsContainerHeight = useFullDayEventsContainerHeight(headerRef, calendarRef);
+  useFullDayEventsContainerHeight(headerRef, calendarRef);
 
   const eventForm = useAppSelector(state => state.app.eventForm);
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ const Calendar = () => {
   return (
     <>
       <StyledDaysHeaderContainer ref={headerRef}>
-        <DaysHeader fullDayEventsContainerHeight={fullDayEventsContainerHeight} />
+        <DaysHeader />
       </StyledDaysHeaderContainer>
 
       <StyledDaysContainer ref={calendarRef}>
