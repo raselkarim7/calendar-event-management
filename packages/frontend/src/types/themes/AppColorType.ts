@@ -12,4 +12,5 @@ export type AppColorType =
   | 'lightGrey'
   | 'paleSky'
   | 'moonMist'
-  | 'titanWhite';
+  | 'titanWhite'
+  | 'chipTealishBlue';

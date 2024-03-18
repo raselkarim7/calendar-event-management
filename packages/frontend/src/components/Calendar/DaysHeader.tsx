@@ -1,6 +1,6 @@
 import { customColors } from '@/configs';
 import { SEVEN_DAYS, initialEventFormObj } from '@/utils';
-import { Chip, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import {
   StyledDaysHeaderContainer,
@@ -12,6 +12,8 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StyledChips } from './Styled/StyledEachDay';
 import { setEventForm } from '@/features/appSlice';
+
+const fullDayEventsDesign = { bgColor: customColors.chipTealishBlue, color: customColors.white, fullWidth: true };
 
 const getColor = (isToday: boolean) => (isToday ? customColors.brightBlue : customColors.paleSky);
 
@@ -48,33 +50,33 @@ const DaysHeader = () => {
           >
             {index % 3 === 0 && (
               <StyledChips
-                ownerState={{ color: customColors.brightBlue }}
+                ownerState={fullDayEventsDesign}
                 onClick={e => {
                   e.stopPropagation();
                 }}
               >
-                Full day Event Title
+                Full day Event Title One
               </StyledChips>
             )}
 
             {index % 2 === 0 && (
               <>
-                <Chip
+                <StyledChips
+                  ownerState={fullDayEventsDesign}
                   onClick={e => {
                     e.stopPropagation();
                   }}
-                  label='Chip1'
-                  size='small'
-                  color='info'
-                />
-                <Chip
+                >
+                  Full day Event Title Two
+                </StyledChips>
+                <StyledChips
+                  ownerState={fullDayEventsDesign}
                   onClick={e => {
                     e.stopPropagation();
                   }}
-                  label='Chip2'
-                  size='small'
-                  color='secondary'
-                />
+                >
+                  Full day Event Title Three
+                </StyledChips>
               </>
             )}
           </StyledFullDayEventsContainer>

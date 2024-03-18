@@ -9,7 +9,6 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setEventForm } from '@/features/appSlice';
 import { addHoursToDate, initialEventFormObj } from '@/utils';
-import { Chip } from '@mui/material';
 
 interface PropsInterface {
   dayName: DayNameType;
@@ -44,7 +43,7 @@ const EachDay = ({ dayName }: PropsInterface) => {
                 );
               }}
             >
-              {hour % 3 === 0 && (
+              {Math.random() > 0.5 && (
                 <StyledChips
                   ownerState={{}}
                   onClick={e => {
@@ -57,24 +56,28 @@ const EachDay = ({ dayName }: PropsInterface) => {
                 </StyledChips>
               )}
 
-              {hour % 2 === 0 && (
+              {Math.random() > 0.5 && (
                 <>
-                  <Chip
+                  <StyledChips
+                    ownerState={{}}
                     onClick={e => {
                       e.stopPropagation();
                     }}
-                    label='Chip1'
-                    size='small'
-                    color='info'
-                  />
-                  <Chip
+                    // label='Saved Event Title Saved Event TitleSaved Event Title'
+                    // size='small'
+                  >
+                    Chip 1
+                  </StyledChips>
+                  <StyledChips
+                    ownerState={{}}
                     onClick={e => {
                       e.stopPropagation();
                     }}
-                    label='Chip2'
-                    size='small'
-                    color='secondary'
-                  />
+                    // label='Saved Event Title Saved Event TitleSaved Event Title'
+                    // size='small'
+                  >
+                    Chip 2
+                  </StyledChips>
                 </>
               )}
             </StyledHourlyEventContainer>
