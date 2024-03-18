@@ -18,6 +18,7 @@ const customColors: Record<AppColorType, CSSProperties['color']> = {
   moonMist: '#DBDBDB',
   titanWhite: '#E6F1FE',
   chipTealishBlue: '#7986cb',
+  chipCyanBlue: '#acccf2',
 };
 
 export default customColors;

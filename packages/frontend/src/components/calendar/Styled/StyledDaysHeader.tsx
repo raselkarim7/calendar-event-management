@@ -41,6 +41,7 @@ const StyledFullDayEventsContainer = styled('div')(({ theme }) => ({
   borderBottom: `1px solid ${theme.app.color.moonMist}`,
   padding: '5px',
   boxSizing: 'content-box',
+  paddingTop: '15px', // Empty space for opening add event modal while too many notes
 }));
 
 const StyledTypographyDate = styled(Typography)<{ ownerState: StyledTypographyDateOwnerStateInterface }>(

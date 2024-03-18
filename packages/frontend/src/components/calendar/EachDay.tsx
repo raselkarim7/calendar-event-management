@@ -49,37 +49,26 @@ const EachDay = ({ dayName }: PropsInterface) => {
                   onClick={e => {
                     e.stopPropagation();
                   }}
-                  // label='Saved Event Title Saved Event TitleSaved Event Title'
-                  // size='small'
                 >
-                  Saved Event Title Saved Event TitleSaved Event Title
+                  Doubt thou the stars are fire.
+                  <div>8.00AM - 10.00AM</div>
                 </StyledChips>
               )}
 
               {Math.random() > 0.5 && (
-                <>
-                  <StyledChips
-                    ownerState={{}}
-                    onClick={e => {
-                      e.stopPropagation();
-                    }}
-                    // label='Saved Event Title Saved Event TitleSaved Event Title'
-                    // size='small'
-                  >
-                    Chip 1
-                  </StyledChips>
-                  <StyledChips
-                    ownerState={{}}
-                    onClick={e => {
-                      e.stopPropagation();
-                    }}
-                    // label='Saved Event Title Saved Event TitleSaved Event Title'
-                    // size='small'
-                  >
-                    Chip 2
-                  </StyledChips>
-                </>
+                <StyledChips
+                  ownerState={{}}
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
+                >
+                  All theory is gray my friend, but the golden tree of life springs ever green.
+                  <div>8.00AM - 10.00AM</div>
+                </StyledChips>
               )}
+              <div style={{ width: '100%', height: '15px' }}>
+                {/* Empty space for opening add event modal while too many notes  */}
+              </div>
             </StyledHourlyEventContainer>
           </div>
         ))}
