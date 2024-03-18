@@ -1,3 +1,4 @@
+/* eslint max-lines: off */
 import { CustomTimePicker } from '@/components/ui/CustomTimePicker';
 import RegularDatePicker from '@/components/ui/RegularDatePicker/RegularDatePicker';
 import { TextField } from '@mui/material';
@@ -13,6 +14,7 @@ import {
   StyledRepeatContainer,
   StyledFlexContainer,
   StyledSumitButtonsContainer,
+  StyledRepeatAfterContainer,
 } from './Styled';
 import { useAppSelector } from '@/hooks';
 
@@ -20,10 +22,26 @@ import { useEffect, useState } from 'react';
 import { AppInitialStateInterface } from '@/types/app';
 import { getOnlyDateString, initialEventFormObj } from '@/utils';
 import dayjs, { Dayjs } from 'dayjs';
+import { CalendarEventInterfacePayloadInterface } from '@/types';
+
+const MAX_LENGTH = {
+  title: 50,
+  description: 150,
+  note: 350,
+};
 
 interface LocalFormDataInterface extends Omit<AppInitialStateInterface['eventForm']['data'], 'startTime' | 'endTime'> {
   startTime: Dayjs | null;
   endTime: Dayjs | null;
+}
+
+interface LocalFormValidationErrorsInterface {
+  title: string;
+  startTime: string;
+  endTime: string;
+  repeatAfter: string;
+  description: string;
+  note: string;
 }
 
 const initialFormState: LocalFormDataInterface = {
@@ -40,12 +58,20 @@ const EventForm = (props: PropsInterface) => {
   const { eventForm } = useAppSelector(state => state.app);
   // const dispatch = useAppDispatch();
   const [localFormData, setLocalFormdata] = useState<LocalFormDataInterface>(initialFormState);
+  const [localErrors, setLocalErrors] = useState<LocalFormValidationErrorsInterface>({
+    title: '',
+    startTime: '',
+    endTime: '',
+    repeatAfter: '',
+    description: '',
+    note: '',
+  });
 
   useEffect(() => {
     setLocalFormdata({
       ...eventForm.data,
       startTime: eventForm.data.startTime ? dayjs(eventForm.data.startTime) : null,
-      endTime: null,
+      endTime: eventForm.data.endTime ? dayjs(eventForm.data.endTime) : null,
     });
   }, [eventForm]);
 
@@ -57,6 +83,7 @@ const EventForm = (props: PropsInterface) => {
       ...prev,
       [fieldName]: event.target.value,
     }));
+    setLocalErrors(prev => ({ ...prev, [fieldName]: '' }));
   };
 
   const handleRepeatAfterChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -69,14 +96,83 @@ const EventForm = (props: PropsInterface) => {
         repeatAfter: value === '' ? 0 : integerValue,
       }));
     }
+    setLocalErrors(prev => ({
+      ...prev,
+      repeatAfter: '',
+    }));
+  };
+
+  const isValid = () => {
+    let hasError = false;
+    const errorsObj = { ...localErrors };
+    if (!localFormData.title.trim()) {
+      hasError = true;
+      errorsObj.title = 'Title is required.';
+    }
+    if (localFormData.title.length > MAX_LENGTH.title) {
+      hasError = true;
+      errorsObj.title = `Title must be less than ${MAX_LENGTH.title} character.`;
+    }
+
+    if (localFormData.description && localFormData.description.length > MAX_LENGTH.description) {
+      hasError = true;
+      errorsObj.description = `Description must be less than ${MAX_LENGTH.description} character.`;
+    }
+    if (localFormData.note && localFormData.note.length > MAX_LENGTH.note) {
+      hasError = true;
+      errorsObj.note = `Note must be less than ${MAX_LENGTH.note} character.`;
+    }
+
+    if (!localFormData.isFullday) {
+      if (!localFormData.startTime) {
+        hasError = true;
+        errorsObj.startTime = 'Start time is required';
+      }
+      if (!localFormData.endTime) {
+        hasError = true;
+        errorsObj.endTime = 'End time is required';
+      }
+      if (localFormData.startTime && localFormData.endTime) {
+        const isSame = localFormData.startTime.isSame(localFormData.endTime);
+        const isAfter = localFormData.startTime.isAfter(localFormData.endTime);
+        if (isSame || isAfter) {
+          errorsObj.endTime = 'End time must be greater.';
+        }
+      }
+    }
+
+    if (localFormData.isRepeat) {
+      if (!localFormData.repeatAfter) {
+        hasError = true;
+        errorsObj.repeatAfter = 'Repeat after required';
+      }
+    }
+    setLocalErrors(errorsObj);
+    return hasError;
   };
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    alert('Validation work on going.');
-  };
+    if (isValid()) {
+      return;
+    }
 
-  console.log('localFormData: ', localFormData);
+    const payload: CalendarEventInterfacePayloadInterface = {
+      title: localFormData.title,
+      startDate: localFormData.startDate.toISOString(),
+      isFullday: localFormData.isFullday,
+      isRepeat: localFormData.isRepeat,
+      repeatAfter: localFormData.repeatAfter ?? 0,
+      startTime: localFormData.startTime ? localFormData.startTime.toISOString() : '',
+      endTime: localFormData.endTime ? localFormData.endTime.toISOString() : '',
+      description: localFormData.description ?? '',
+      note: localFormData.note ?? '',
+      endDate: localFormData.endDate ? localFormData.endDate.toISOString() : '',
+    };
+
+    alert('Ready to submit form: \n\n' + JSON.stringify(payload));
+    // console.log('payload ~~~~~~~~~> ', payload);
+  };
 
   return (
     <StyledFormContainer>
@@ -88,6 +184,8 @@ const EventForm = (props: PropsInterface) => {
           size='medium'
           value={localFormData.title}
           onChange={e => handleChangePlainText(e, 'title')}
+          error={Boolean(localErrors.title)}
+          helperText={localErrors.title}
         />
 
         <StyledDateAndCheckboxContainer>
@@ -126,6 +224,11 @@ const EventForm = (props: PropsInterface) => {
                       ...prev,
                       isFullday: e.target.checked,
                     }));
+                    setLocalErrors(prev => ({
+                      ...prev,
+                      startTime: '',
+                      endTime: '',
+                    }));
                   }}
                 />
               }
@@ -137,6 +240,7 @@ const EventForm = (props: PropsInterface) => {
         <StyledTimePickersContainer>
           <CustomTimePicker
             minTime={null}
+            disabled={localFormData.isFullday}
             placeholder='Start Time'
             value={localFormData.startTime}
             onChange={val => {
@@ -147,10 +251,18 @@ const EventForm = (props: PropsInterface) => {
                   .set('minute', val?.get('minute') ?? 0)
                   .set('seconds', val?.get('seconds') ?? 0),
               }));
+
+              setLocalErrors(prev => ({
+                ...prev,
+                startTime: '',
+              }));
             }}
+            error={Boolean(localErrors.startTime)}
+            helperText={localErrors.startTime}
           />
           <div>–</div>
           <CustomTimePicker
+            disabled={localFormData.isFullday}
             placeholder='End Time'
             value={localFormData.endTime}
             minTime={localFormData.startTime}
@@ -162,28 +274,43 @@ const EventForm = (props: PropsInterface) => {
                   .set('minute', val?.get('minute') ?? 0)
                   .set('seconds', val?.get('seconds') ?? 0),
               }));
+              setLocalErrors(prev => ({
+                ...prev,
+                endTime: '',
+              }));
             }}
+            error={Boolean(localErrors.endTime)}
+            helperText={localErrors.endTime}
           />
         </StyledTimePickersContainer>
 
         <StyledRepeatContainer>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={localFormData.isRepeat}
-                  onChange={e => {
-                    setLocalFormdata(prev => ({
-                      ...prev,
-                      isRepeat: e.target.checked,
-                    }));
-                  }}
+          <div>
+            <div style={{ marginTop: '5px' }}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={localFormData.isRepeat}
+                      onChange={e => {
+                        setLocalFormdata(prev => ({
+                          ...prev,
+                          isRepeat: e.target.checked,
+                        }));
+                        setLocalErrors(prev => ({
+                          ...prev,
+                          repeatAfter: '',
+                        }));
+                      }}
+                    />
+                  }
+                  label='Is Repeat'
                 />
-              }
-              label='Is Repeat'
-            />
-          </FormGroup>
-          <StyledFlexContainer>
+              </FormGroup>
+            </div>
+          </div>
+
+          <StyledRepeatAfterContainer>
             <div>Repeat After:</div>
             <TextField
               id='event-description'
@@ -193,10 +320,12 @@ const EventForm = (props: PropsInterface) => {
               type='text'
               size='small'
               sx={{ width: '110px' }}
+              error={Boolean(localErrors.repeatAfter)}
+              helperText={localErrors.repeatAfter}
               onChange={handleRepeatAfterChange}
             />
             <div>Days</div>
-          </StyledFlexContainer>
+          </StyledRepeatAfterContainer>
         </StyledRepeatContainer>
 
         <TextField
@@ -206,6 +335,8 @@ const EventForm = (props: PropsInterface) => {
           size='small'
           value={localFormData.description || ''}
           onChange={e => handleChangePlainText(e, 'description')}
+          error={Boolean(localErrors.description)}
+          helperText={localErrors.description}
         />
         <TextField
           id='event-note'
@@ -217,11 +348,14 @@ const EventForm = (props: PropsInterface) => {
           size='small'
           value={localFormData.note || ''}
           onChange={e => handleChangePlainText(e, 'note')}
+          error={Boolean(localErrors.note)}
+          helperText={localErrors.note}
         />
 
         <StyledFlexContainer>
           <div>End Date:</div>
           <RegularDatePicker
+            minDate={getOnlyDateString(localFormData.startDate)}
             date={localFormData.endDate ? getOnlyDateString(localFormData.endDate) : ''}
             onChange={val => {
               if (val) {

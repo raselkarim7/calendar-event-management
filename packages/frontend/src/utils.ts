@@ -27,7 +27,7 @@ export const initialEventFormObj: AppInitialStateInterface['eventForm'] = {
     startDate: new Date(),
     isFullday: false,
     isRepeat: false,
-    repeatAfter: 1,
+    repeatAfter: 0,
     startTime: '',
     endTime: '',
     description: '',

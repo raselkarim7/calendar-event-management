@@ -17,19 +17,32 @@ interface PropsInterface {
   onChange: (newValue: Dayjs) => void;
   placeholder: string;
   minTime: Dayjs | null;
+  disabled?: boolean;
+  error?: boolean;
+  helperText?: string;
 }
 
-const CustomTimePicker = ({ value, onChange, placeholder, minTime }: PropsInterface) => {
+const CustomTimePicker = ({
+  value,
+  onChange,
+  placeholder,
+  minTime,
+  disabled = false,
+  error = false,
+  helperText = '',
+}: PropsInterface) => {
   return (
     <StyledTimePicker
       minutesStep={15}
+      disabled={disabled}
       value={value}
       onChange={newVal => onChange(newVal as Dayjs)}
       disableIgnoringDatePartForTimeValidation={true}
       minTime={minTime}
       slots={{
         textField: TextField,
-        // Should not use like below. Instead should use slotProps, See details here. https://github.com/mui/mui-x/issues/9078
+        // Should not use like below. Instead should use slotProps,
+        // See details here. https://github.com/mui/mui-x/issues/9078
         // textField: textFieldProps => (
         //   <TextField
         //     {...textFieldProps}
@@ -45,8 +58,9 @@ const CustomTimePicker = ({ value, onChange, placeholder, minTime }: PropsInterf
         textField: {
           variant: 'standard',
           placeholder: placeholder,
-          // error: true,
-          // helperText: 'required',
+          error: error,
+          helperText: helperText,
+
           onKeyDown: e => {
             e.preventDefault();
           },

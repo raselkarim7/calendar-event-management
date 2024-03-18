@@ -19,4 +19,10 @@
 **Just completed the design of frontend.** 
 **Functionalities will be added later**
 
+### Previous Condition:
 ![alt text](image.png)
+
+<br />
+
+### Current condition
+![alt text](image-1.png)

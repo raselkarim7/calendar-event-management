@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { TextField, styled } from '@mui/material';
 
 import dayjs from 'dayjs';
@@ -24,12 +25,21 @@ interface PropsInterface {
   disabled?: boolean;
   isDisableFuture?: boolean;
   maxDate?: string;
+  minDate?: string;
 }
-const RegularDatePicker = ({ date, onChange, disabled = false, isDisableFuture = false, maxDate }: PropsInterface) => {
+const RegularDatePicker = ({
+  date,
+  onChange,
+  disabled = false,
+  isDisableFuture = false,
+  maxDate,
+  minDate,
+}: PropsInterface) => {
   return (
     <StyledDatePickerWrapper
       disabled={disabled}
       maxDate={maxDate ? dayjs(maxDate) : null}
+      minDate={minDate ? dayjs(minDate) : null}
       disableFuture={isDisableFuture}
       value={date ? dayjs(date) : null}
       // eslint-disable-next-line

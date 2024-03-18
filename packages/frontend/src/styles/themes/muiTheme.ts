@@ -194,5 +194,14 @@ export default createTheme({
         },
       },
     },
+
+    MuiFormHelperText: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          fontSize: '14px',
+        },
+      },
+    },
   },
 });

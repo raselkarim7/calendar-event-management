@@ -17,10 +17,10 @@ const CalendarEventSchema = new mongoose.Schema({
   },
   repeatAfter: {
     type: Number,
-    min: [1, "Must be at least 1, got {VALUE}"],
+    min: [0, "Must be at least 0, got {VALUE}"],
     required: [
       function () {
-        return this.get("isRepeat");
+        return this.get("isRepeat"); // have to write more validation code here. 
       },
       "Must have repeat after days",
     ],
@@ -36,7 +36,7 @@ const CalendarEventSchema = new mongoose.Schema({
   },
 
   startTime: {
-    type: String, // Example: 18:00:00 // https://stackoverflow.com/a/56537756
+    type: Date, 
     required: [
       function () {
         return !this.get("isFullday");
@@ -45,7 +45,7 @@ const CalendarEventSchema = new mongoose.Schema({
     ],
   },
   endTime: {
-    type: String, // Example: 18:00:00 // https://stackoverflow.com/a/56537756
+    type: Date, 
     required: [
       function () {
         return !this.get("isFullday");
@@ -55,7 +55,7 @@ const CalendarEventSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    maxlength: [250, "Description can not be more than 250 characters"],
+    maxlength: [150, "Description can not be more than 150 characters"],
   },
   note: {
     type: String,

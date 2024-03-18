@@ -14,17 +14,23 @@ export interface CalendarEventInterface {
   endDate?: Date;
 }
 
+export interface CalendarEventInterfacePayloadInterface {
+  title: string;
+  startDate: string;
+  isFullday: boolean;
+  isRepeat: boolean;
+  repeatAfter: number;
+  startTime: string;
+  endTime: string;
+  description: string;
+  note: string;
+  endDate: string;
+}
+
 interface EachDayInterface {
   date: Date;
   isToday: boolean;
 }
 export interface FullWeekObjInterface {
   [key: string]: EachDayInterface;
-  // SUN: EachDayInterface;
-  // MON: EachDayInterface;
-  // TUE: EachDayInterface;
-  // WED: EachDayInterface;
-  // THU: EachDayInterface;
-  // FRI: EachDayInterface;
-  // SAT: EachDayInterface;
 }

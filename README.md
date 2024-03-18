@@ -30,3 +30,7 @@ Frontend: http://localhost:3000/
 - **husky** added 
 - husky will run linter in **Frontend** part while **pre-commit**, and check the linter  
 - Also husky will build the **Frontend** while **pre-push** and won't push in case of build failure. 
+
+
+### Happy to share that, Only frontend is hosted on vercel. 
+**Please Check this: https://calendar-event-management-ye5v.vercel.app/**

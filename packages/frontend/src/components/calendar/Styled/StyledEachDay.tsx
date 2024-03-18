@@ -52,11 +52,13 @@ const StyledHourlyEventContainer = styled('div')(({ theme }) => ({
 
 const StyledChips = styled('div')<{ ownerState: StyledChipsStateInterface }>(({ theme, ownerState }) => ({
   borderRadius: '3px',
+  cursor: 'pointer',
   color: ownerState.color ? ownerState.color : theme.app.color.blackEel,
   background: ownerState.bgColor ? ownerState.bgColor : theme.app.color.chipCyanBlue,
   padding: '2px 4px',
   fontSize: '13px',
   height: 'max-content',
+  // wordBreak: 'normal',
   width: ownerState.fullWidth ? '100%' : 'calc(100% - 10px)',
   '& > div': {
     fontWeight: 'bold',

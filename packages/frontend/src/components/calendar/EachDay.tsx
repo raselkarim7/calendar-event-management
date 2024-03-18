@@ -20,6 +20,13 @@ const EachDay = ({ dayName }: PropsInterface) => {
   const dispatch = useAppDispatch();
   const { fullWeekObj } = useAppSelector(state => state.app);
 
+  const getMockHourRange = (hour: number) => {
+    const firstPart = `${hour.toString().padStart(2, '0')}:00`;
+    const copyHour = hour + 1;
+    const secondPart = `${copyHour.toString().padStart(2, '0')}:00`;
+    return `${firstPart} - ${secondPart}`;
+  };
+
   return (
     <>
       <StyledEachDayContainer>
@@ -43,19 +50,19 @@ const EachDay = ({ dayName }: PropsInterface) => {
                 );
               }}
             >
-              {Math.random() > 0.5 && (
+              {Math.random() > 0.7 && (
                 <StyledChips
                   ownerState={{}}
                   onClick={e => {
                     e.stopPropagation();
                   }}
                 >
-                  Doubt thou the stars are fire.
-                  <div>8.00AM - 10.00AM</div>
+                  Hell is empty and all the devils are here.
+                  <div>{getMockHourRange(hour)}</div>
                 </StyledChips>
               )}
 
-              {Math.random() > 0.5 && (
+              {Math.random() > 0.6 && (
                 <StyledChips
                   ownerState={{}}
                   onClick={e => {
@@ -63,7 +70,7 @@ const EachDay = ({ dayName }: PropsInterface) => {
                   }}
                 >
                   All theory is gray my friend, but the golden tree of life springs ever green.
-                  <div>8.00AM - 10.00AM</div>
+                  <div>{getMockHourRange(hour)}</div>
                 </StyledChips>
               )}
               <div style={{ width: '100%', height: '15px' }}>

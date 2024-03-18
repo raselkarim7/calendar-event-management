@@ -30,7 +30,7 @@ const StyledDateAndCheckboxContainer = styled('div')(() => ({
 const StyledTimePickersContainer = styled('div')(() => ({
   marginBottom: '-5px',
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'baseline',
   gap: '16px',
 }));
 
@@ -38,7 +38,7 @@ const StyledRepeatContainer = styled('div')(() => ({
   display: 'flex',
   gap: '10px',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  // alignItems: 'baseline',
   '& > div:nth-of-type(1)': {
     minWidth: '100px',
   },
@@ -47,6 +47,12 @@ const StyledRepeatContainer = styled('div')(() => ({
 const StyledFlexContainer = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
+  gap: '10px',
+}));
+
+const StyledRepeatAfterContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'baseline',
   gap: '10px',
 }));
 
@@ -63,4 +69,5 @@ export {
   StyledRepeatContainer,
   StyledFlexContainer,
   StyledSumitButtonsContainer,
+  StyledRepeatAfterContainer,
 };
