@@ -16,13 +16,17 @@ import {
   StyledSumitButtonsContainer,
   StyledRepeatAfterContainer,
 } from './Styled';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useEffect, useState } from 'react';
 import { AppInitialStateInterface } from '@/types/app';
 import { getOnlyDateString, initialEventFormObj } from '@/utils';
 import dayjs, { Dayjs } from 'dayjs';
-import { CalendarEventInterfacePayloadInterface } from '@/types';
+import { CalendarEventPayloadInterface } from '@/types';
+import { usePostCalenderEventMutation } from '@/services';
+import { toast } from 'react-toastify';
+import UiBackDrop from '@/components/ui/UiBackDrop/UiBackDrop';
+import { setEventFormsVisibility } from '@/features/appSlice';
 
 const MAX_LENGTH = {
   title: 50,
@@ -56,7 +60,10 @@ interface PropsInterface {
 
 const EventForm = (props: PropsInterface) => {
   const { eventForm } = useAppSelector(state => state.app);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+
+  const [addEvent, addEventService] = usePostCalenderEventMutation();
+
   const [localFormData, setLocalFormdata] = useState<LocalFormDataInterface>(initialFormState);
   const [localErrors, setLocalErrors] = useState<LocalFormValidationErrorsInterface>({
     title: '',
@@ -136,6 +143,7 @@ const EventForm = (props: PropsInterface) => {
         const isSame = localFormData.startTime.isSame(localFormData.endTime);
         const isAfter = localFormData.startTime.isAfter(localFormData.endTime);
         if (isSame || isAfter) {
+          hasError = true;
           errorsObj.endTime = 'End time must be greater.';
         }
       }
@@ -151,13 +159,13 @@ const EventForm = (props: PropsInterface) => {
     return hasError;
   };
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isValid()) {
       return;
     }
 
-    const payload: CalendarEventInterfacePayloadInterface = {
+    const payload: CalendarEventPayloadInterface = {
       title: localFormData.title,
       startDate: localFormData.startDate.toISOString(),
       isFullday: localFormData.isFullday,
@@ -170,8 +178,14 @@ const EventForm = (props: PropsInterface) => {
       endDate: localFormData.endDate ? localFormData.endDate.toISOString() : '',
     };
 
-    alert('Ready to submit form: \n\n' + JSON.stringify(payload));
-    // console.log('payload ~~~~~~~~~> ', payload);
+    try {
+      const res = await addEvent(payload).unwrap();
+      console.log('res ========> ', res);
+      toast.success('Event added successfully.');
+      dispatch(setEventFormsVisibility('INVISIBLE'));
+    } catch (error) {
+      toast.error('Adding event failed.');
+    }
   };
 
   return (
@@ -380,6 +394,7 @@ const EventForm = (props: PropsInterface) => {
           </Button>
         </StyledFlexContainer>
       </StyledSumitButtonsContainer>
+      <UiBackDrop open={addEventService.isLoading} />
     </StyledFormContainer>
   );
 };

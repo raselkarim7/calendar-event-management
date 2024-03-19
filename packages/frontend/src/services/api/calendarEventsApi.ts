@@ -1,6 +1,6 @@
 import api from './rootApi';
 
-import { CalendarEventInterface, REDUX_API_TAGS } from '@/types';
+import { CalendarEventInterface, CalendarEventPayloadInterface, REDUX_API_TAGS } from '@/types';
 import { FetchArgs } from '@reduxjs/toolkit/query';
 import { transformCalenderAllEventsResponse, transformErrorResponse } from '../apiTransform';
 
@@ -15,7 +15,19 @@ export const calendarEventsApi = api.injectEndpoints({
       transformErrorResponse,
       providesTags: [REDUX_API_TAGS.ALL_EVENTS],
     }),
+
+    // POST a calender event
+    postCalenderEvent: builder.mutation<CalendarEventInterface, CalendarEventPayloadInterface>({
+      query: payload => {
+        return {
+          url: '/calendar-events',
+          method: 'POST',
+          body: payload,
+        };
+      },
+      invalidatesTags: [REDUX_API_TAGS.ALL_EVENTS],
+    }),
   }),
 });
 
-export const { useGetCalenderEventsQuery } = calendarEventsApi;
+export const { useGetCalenderEventsQuery, usePostCalenderEventMutation } = calendarEventsApi;

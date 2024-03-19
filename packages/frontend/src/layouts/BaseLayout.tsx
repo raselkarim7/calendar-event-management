@@ -3,6 +3,9 @@ import { ThemeProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Provider } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import { reduxStore } from '@/store';
 
 import { styled } from '@mui/material';
@@ -43,6 +46,7 @@ const BaseLayout = ({ children }: LayoutInterface) => {
             {<Sidebar showSidebar={showSidebar} />}
             <StyledChildrenContainer ownerState={{ sidebarOpen: showSidebar }}>{children}</StyledChildrenContainer>
           </StyledMainDiv>
+          <ToastContainer autoClose={2000} />
         </Provider>
       </LocalizationProvider>
     </ThemeProvider>

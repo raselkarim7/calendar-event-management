@@ -14,7 +14,7 @@ export interface CalendarEventInterface {
   endDate?: Date;
 }
 
-export interface CalendarEventInterfacePayloadInterface {
+export interface CalendarEventPayloadInterface {
   title: string;
   startDate: string;
   isFullday: boolean;

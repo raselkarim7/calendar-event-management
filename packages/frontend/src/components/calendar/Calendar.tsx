@@ -50,7 +50,6 @@ const Calendar = () => {
         <>
           <EventForm
             onClose={() => {
-              console.log('onClose called.');
               dispatch(setEventFormsVisibility('INVISIBLE'));
             }}
           />

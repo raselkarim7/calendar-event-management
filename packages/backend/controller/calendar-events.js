@@ -7,7 +7,6 @@ function isDateValid(dateStr) {
 
 const getAllEvents = async (req, res) => {
   const { startDay, endDay } = req.query;
-console.log('startDay: ', startDay)
   if (startDay && endDay) {
     if (!isDateValid(startDay)) {
       createCustomError(`Invalid Start day. Got ${startDay}`, 500);
@@ -51,7 +50,6 @@ const getEvent = async (req, res, next) => {
 
 const updateEvent = async (req, res, next) => {
   const { id: eventID } = req.params;
-  // console.log('update event: ', req.body)
   let foundResult = {};
 
   try {
