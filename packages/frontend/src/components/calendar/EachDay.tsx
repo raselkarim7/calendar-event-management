@@ -1,4 +1,9 @@
+import { Fragment } from 'react';
+
 import { DayNameType, WeeklyEventsByDateInterface } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setEventForm, setEventPopOver } from '@/features/appSlice';
+import { addHoursToDate, initialEventFormObj } from '@/utils';
 
 import {
   StyledEachDayContainer,
@@ -6,19 +11,16 @@ import {
   StyledChips,
   StyledHourlyEventContainer,
 } from './Styled/StyledEachDay';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { setEventForm } from '@/features/appSlice';
-import { addHoursToDate, initialEventFormObj } from '@/utils';
-import { Fragment } from 'react/jsx-runtime';
 
 interface PropsInterface {
   dayName: DayNameType;
   weeklyEventsByDate: WeeklyEventsByDateInterface;
+  handlePopOver: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const twentyFourHours = Array.from(Array(24)).map((_, i) => i);
 
-const EachDay = ({ dayName, weeklyEventsByDate }: PropsInterface) => {
+const EachDay = ({ dayName, weeklyEventsByDate, handlePopOver }: PropsInterface) => {
   const dispatch = useAppDispatch();
   const { fullWeekObj } = useAppSelector(state => state.app);
 
@@ -63,6 +65,13 @@ const EachDay = ({ dayName, weeklyEventsByDate }: PropsInterface) => {
                     ownerState={{}}
                     onClick={e => {
                       e.stopPropagation();
+                      handlePopOver(e);
+                      dispatch(
+                        setEventPopOver({
+                          mode: 'SHOW',
+                          data: chipItem,
+                        }),
+                      );
                     }}
                   >
                     {chipItem.title}

@@ -4,15 +4,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 import CalenderLogo from '@/assets/calendar-logo.png';
-import { RegularDatePicker } from '@/components/ui/RegularDatePicker';
+
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setAppDate } from '@/features/appSlice';
 import { addDays, getOnlyDateString, subDays } from '@/utils';
+import { RegularDatePicker } from '@/components/ui';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',

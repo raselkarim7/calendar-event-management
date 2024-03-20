@@ -1,1 +1,1 @@
-export { default as AddEventModal } from './CustomModal';
+export { default } from './CustomModal';

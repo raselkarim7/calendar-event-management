@@ -74,7 +74,7 @@ export default createTheme({
       textTransform: 'inherit',
     },
     subtitle1: {
-      fontSize: '24px',
+      fontSize: '20px',
       fontWeight: 400,
     },
     copyright: {

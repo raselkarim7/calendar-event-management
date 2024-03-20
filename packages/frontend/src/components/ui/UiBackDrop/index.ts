@@ -1,1 +1,1 @@
-export { default as ImsBackDrop } from './UiBackDrop';
+export { default } from './UiBackDrop';

@@ -36,6 +36,23 @@ export const initialEventFormObj: AppInitialStateInterface['eventForm'] = {
   },
 };
 
+export const initialEventPopOverObj: AppInitialStateInterface['eventPopOver'] = {
+  mode: 'HIDE',
+  data: {
+    _id: '',
+    title: '',
+    startDate: new Date(),
+    isFullday: false,
+    isRepeat: false,
+    repeatAfter: 0,
+    startTime: '',
+    endTime: '',
+    description: '',
+    note: '',
+    endDate: undefined,
+  },
+};
+
 export function addDays(date: Date, days: number) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
@@ -81,6 +98,18 @@ export const addHoursToDate = (date: Date, hours: number, minutes = 0) => {
   const dateStr = getOnlyDateString(date);
   const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   return dayjs(`${dateStr}T${timeStr}`).toISOString();
+};
+
+export const getTimeRange = (param: CalendarEventInterface) => {
+  if (param.isFullday) {
+    return '';
+  }
+  const { startTime, endTime } = param;
+  if (startTime && endTime) {
+    const res = `${dayjs(param.startTime).format('hh:mm A')} - ${dayjs(param.endTime).format('hh:mm A')}`;
+    return res;
+  }
+  return '';
 };
 
 const isInBetween = (firstDay: string, lastDay: string, givenDate: string) => {

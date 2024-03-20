@@ -1,10 +1,15 @@
 import { styled } from '@mui/material';
-import { PlainDatePicker } from '@/components/ui/PlainDatePicker';
+
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setAppDate } from '@/features/appSlice';
 import { getOnlyDateString } from '@/utils';
+import { PlainDatePicker } from '@/components/ui';
 
-const StyledDiv = styled('div')(({ theme }) => ({
+interface StyledDivOwnerStateInterface {
+  showSidebar: boolean;
+}
+const StyledDiv = styled('div')<{ ownerState: StyledDivOwnerStateInterface }>(({ theme, ownerState }) => ({
+  display: ownerState.showSidebar ? 'block' : 'none',
   width: 'var(--sidebar-width)',
   background: theme.app.color.titanWhite,
   height: '100%',
@@ -18,11 +23,10 @@ const Sidebar = ({ showSidebar }: PropsInterface) => {
   const selectedAppDate = useAppSelector(state => state.app.selectedAppDate);
   const dispatch = useAppDispatch();
   return (
-    <StyledDiv id='calendar-sidebar' style={{ display: showSidebar ? 'block' : 'none' }}>
+    <StyledDiv ownerState={{ showSidebar }}>
       <PlainDatePicker
         value={getOnlyDateString(selectedAppDate)}
         onChange={val => {
-          console.log('indie sidebar plain date picker', val);
           if (val) {
             dispatch(setAppDate(val.toDate()));
           }

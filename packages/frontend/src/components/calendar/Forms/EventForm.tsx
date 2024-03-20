@@ -1,11 +1,21 @@
 /* eslint max-lines: off */
-import { CustomTimePicker } from '@/components/ui/CustomTimePicker';
-import RegularDatePicker from '@/components/ui/RegularDatePicker/RegularDatePicker';
+import { useEffect, useState } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import { toast } from 'react-toastify';
+
+import { CustomTimePicker, RegularDatePicker, UiBackDrop } from '@/components/ui';
 import { TextField } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+
+import { AppInitialStateInterface, CalendarEventPayloadInterface } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { usePostCalenderEventMutation } from '@/services';
+import { setEventFormsVisibility } from '@/features/appSlice';
+import { getOnlyDateString, initialEventFormObj } from '@/utils';
+
 import {
   StyledFormContainer,
   StyledFormFieldsContainer,
@@ -16,17 +26,6 @@ import {
   StyledSumitButtonsContainer,
   StyledRepeatAfterContainer,
 } from './Styled';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-
-import { useEffect, useState } from 'react';
-import { AppInitialStateInterface } from '@/types/app';
-import { getOnlyDateString, initialEventFormObj } from '@/utils';
-import dayjs, { Dayjs } from 'dayjs';
-import { CalendarEventPayloadInterface } from '@/types';
-import { usePostCalenderEventMutation } from '@/services';
-import { toast } from 'react-toastify';
-import UiBackDrop from '@/components/ui/UiBackDrop/UiBackDrop';
-import { setEventFormsVisibility } from '@/features/appSlice';
 
 const MAX_LENGTH = {
   title: 50,
@@ -179,8 +178,7 @@ const EventForm = (props: PropsInterface) => {
     };
 
     try {
-      const res = await addEvent(payload).unwrap();
-      console.log('res ========> ', res);
+      await addEvent(payload).unwrap();
       toast.success('Event added successfully.');
       dispatch(setEventFormsVisibility('INVISIBLE'));
     } catch (error) {

@@ -1,5 +1,5 @@
 import { AppInitialStateInterface } from '@/types/app';
-import { getFullWeekObjByCurrentDate, initialEventFormObj } from '@/utils';
+import { getFullWeekObjByCurrentDate, initialEventFormObj, initialEventPopOverObj } from '@/utils';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState: AppInitialStateInterface = {
@@ -7,6 +7,7 @@ const initialState: AppInitialStateInterface = {
   selectedAppDate: new Date(),
   fullWeekObj: getFullWeekObjByCurrentDate(new Date().toString()),
   eventForm: initialEventFormObj,
+  eventPopOver: initialEventPopOverObj,
 };
 
 const appSlice = createSlice({
@@ -29,9 +30,13 @@ const appSlice = createSlice({
     setEventFormsVisibility: (state, action: PayloadAction<AppInitialStateInterface['eventForm']['mode']>) => {
       state.eventForm.mode = action.payload;
     },
+    setEventPopOver: (state, action: PayloadAction<AppInitialStateInterface['eventPopOver']>) => {
+      state.eventPopOver = action.payload;
+    },
   },
 });
 
-export const { increment, decrement, setAppDate, setEventForm, setEventFormsVisibility } = appSlice.actions;
+export const { increment, decrement, setAppDate, setEventForm, setEventFormsVisibility, setEventPopOver } =
+  appSlice.actions;
 
 export default appSlice;

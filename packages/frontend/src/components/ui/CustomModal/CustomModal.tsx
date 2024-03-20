@@ -1,6 +1,6 @@
+import { createPortal } from 'react-dom';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import { createPortal } from 'react-dom';
 
 import { StyledModalContainer, StyledDialogHeader, StyledChildrenContainer } from './Styled';
 

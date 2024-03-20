@@ -15,4 +15,8 @@ export interface AppInitialStateInterface {
     mode: 'CREATE' | 'EDIT' | 'INVISIBLE';
     data: CalendarEventInterface;
   };
+  eventPopOver: {
+    mode: 'SHOW' | 'HIDE'; // Considered it. But UNUSED now.
+    data: CalendarEventInterface;
+  };
 }

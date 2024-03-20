@@ -1,6 +1,11 @@
+import { Fragment } from 'react';
+import { Typography } from '@mui/material';
+
 import { customColors } from '@/configs';
 import { SEVEN_DAYS, initialEventFormObj } from '@/utils';
-import { Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setEventForm, setEventPopOver } from '@/features/appSlice';
+import { WeeklyEventsByDateInterface } from '@/types';
 
 import {
   StyledDaysHeaderContainer,
@@ -9,19 +14,16 @@ import {
   StyledFullDayEventsContainer,
   StyledTypographyDate,
 } from './Styled/StyledDaysHeader';
-import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StyledChips } from './Styled/StyledEachDay';
-import { setEventForm } from '@/features/appSlice';
-import { WeeklyEventsByDateInterface } from '@/types';
-import { Fragment } from 'react/jsx-runtime';
 
 const fullDayEventsDesign = { bgColor: customColors.chipTealishBlue, color: customColors.white, fullWidth: true };
 const getColor = (isToday: boolean) => (isToday ? customColors.brightBlue : customColors.paleSky);
 
 interface PropsInterface {
   weeklyEventsByDate: WeeklyEventsByDateInterface;
+  handlePopOver: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
-const DaysHeader = ({ weeklyEventsByDate }: PropsInterface) => {
+const DaysHeader = ({ weeklyEventsByDate, handlePopOver }: PropsInterface) => {
   const { fullWeekObj } = useAppSelector(state => state.app);
   const dispatch = useAppDispatch();
 
@@ -62,6 +64,13 @@ const DaysHeader = ({ weeklyEventsByDate }: PropsInterface) => {
                   ownerState={fullDayEventsDesign}
                   onClick={e => {
                     e.stopPropagation();
+                    handlePopOver(e);
+                    dispatch(
+                      setEventPopOver({
+                        mode: 'SHOW',
+                        data: chipItem,
+                      }),
+                    );
                   }}
                 >
                   {chipItem.title}

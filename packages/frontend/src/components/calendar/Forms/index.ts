@@ -1,1 +1,1 @@
-export { default as AddEvent } from './EventForm';
+export { default as EventForm } from './EventForm';
