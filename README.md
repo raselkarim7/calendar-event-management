@@ -29,7 +29,7 @@ Frontend: http://localhost:3000/
 
 ### Backend run guide.
 **If you want to run the backend application on local machine**
-- You have to edit [packages\backend\.env](\.env)
+- You have to edit [packages\backend\.env](packages/backend/.env)
 - Here have to uncomment the local db url and comment the mongo db atlas like below
 ```sh
 MONGO_URI=mongodb://127.0.0.1:27017/calender_events_db
