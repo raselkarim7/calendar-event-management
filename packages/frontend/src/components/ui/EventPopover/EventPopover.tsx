@@ -106,8 +106,20 @@ const EventPopover = ({ anchorEl, onClosePopOver }: EventPopoverInterface) => {
             </Typography>
             <Typography padding={'4px 0px 8px 0px'} color={customColors.brightBlue} component='div' variant='copyright'>
               {dayjs(eventPopOver.data.startDate).format('MMMM D, YYYY')}
+              {eventPopOver.data.isFullday && (
+                <Typography fontWeight={'bold'} color={'#eb2f93'} variant='caption' component='div'>
+                  Full day event
+                </Typography>
+              )}
+
               <div>{getTimeRange(eventPopOver.data)}</div>
             </Typography>
+
+            {eventPopOver.data.isRepeat && (
+              <Typography fontWeight={'bold'} color={'orangered'} variant='caption' component='div'>
+                Repeat In: {eventPopOver.data.repeatAfter} days
+              </Typography>
+            )}
 
             <Typography fontWeight={'bold'} color={'black'} variant='caption' component='div'>
               Description:{' '}

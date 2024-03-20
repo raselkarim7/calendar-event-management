@@ -33,8 +33,6 @@ const StyledFullDayEventsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '4px',
-
-  // flexWrap: 'wrap',
   justifyContent: 'center',
   alignItems: 'center',
   borderLeft: `1px solid ${theme.app.color.moonMist}`,

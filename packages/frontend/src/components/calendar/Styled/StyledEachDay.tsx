@@ -58,7 +58,6 @@ const StyledChips = styled('div')<{ ownerState: StyledChipsStateInterface }>(({ 
   padding: '2px 4px',
   fontSize: '13px',
   height: 'max-content',
-  // wordBreak: 'normal',
   width: ownerState.fullWidth ? '100%' : 'calc(100% - 10px)',
   '& > div': {
     fontWeight: 'bold',

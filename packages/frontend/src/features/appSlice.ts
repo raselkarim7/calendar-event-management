@@ -66,6 +66,34 @@ export const getWeeklyEventsByDate = createSelector(
             }
           }
         }
+      } else {
+        // Calculating The Future repeating dates here.
+        if (item.isRepeat) {
+          let repeatStartDate = getOnlyDateString(item.startDate);
+          while (
+            repeatStartDate < fullWeekObj.SUN.onlyDateStr ||
+            (repeatStartDate >= fullWeekObj.SUN.onlyDateStr && repeatStartDate <= fullWeekObj.SAT.onlyDateStr)
+          ) {
+            const dayStr = repeatStartDate; // dayStr
+            if (repeatStartDate >= fullWeekObj.SUN.onlyDateStr && repeatStartDate <= fullWeekObj.SAT.onlyDateStr) {
+              if (!weeklyEventsByDate[dayStr].map(i => i._id).includes(item._id)) {
+                weeklyEventsByDate[dayStr] = [...weeklyEventsByDate[dayStr], item];
+              }
+
+              repeatStartDate = getOnlyDateString(
+                dayjs(dayStr)
+                  .add(item.repeatAfter ?? 0, 'day')
+                  .toDate(),
+              );
+            } else {
+              repeatStartDate = getOnlyDateString(
+                dayjs(dayStr)
+                  .add(item.repeatAfter ?? 0, 'day')
+                  .toDate(),
+              );
+            }
+          }
+        }
       }
     }
     return weeklyEventsByDate;

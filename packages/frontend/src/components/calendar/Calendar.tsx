@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector, useFullDayEventsContainerHeight } from '@/hooks';
-// import { useGetCalenderEventsQuery } from '@/services';
+import { useGetCalenderEventsQuery } from '@/services';
 import { getWeeklyEventsByDate, setEventFormsVisibility } from '@/features/appSlice';
 import { EventPopover, CustomModal } from '@/components/ui';
 import { SEVEN_DAYS } from '@/utils';
@@ -11,16 +11,12 @@ import DaysHeader from './DaysHeader';
 import EventForm from './Forms/EventForm';
 
 const Calendar = () => {
+  useGetCalenderEventsQuery({});
+
   const headerRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
   useFullDayEventsContainerHeight(headerRef, calendarRef);
   const [popOverAnchorEl, setPopOverAnchorEl] = useState<HTMLDivElement | null>(null);
-
-  // const { data } = useGetCalenderEventsQuery({});
-  // console.log('Calendar data ---->>> ', data);
-
-  // const { fullWeekObj } = useAppSelector(state => state.app.fullWeekObj);
-  // console.log('Full week obj: ', fullWeekObj);
 
   const weeklyEventsByDate = useAppSelector(state => getWeeklyEventsByDate(state));
   const eventForm = useAppSelector(state => state.app.eventForm);

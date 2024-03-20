@@ -164,7 +164,7 @@ const EventForm = (props: PropsInterface) => {
     if (isValid()) {
       return;
     }
-    console.log('localFormData: ', localFormData);
+
     const payload: CalendarEventPayloadInterface = {
       title: localFormData.title,
       startDate: localFormData.startDate.toISOString(),

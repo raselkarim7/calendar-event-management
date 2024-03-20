@@ -38,7 +38,6 @@ const StyledRepeatContainer = styled('div')(() => ({
   display: 'flex',
   gap: '10px',
   justifyContent: 'space-between',
-  // alignItems: 'baseline',
   '& > div:nth-of-type(1)': {
     minWidth: '100px',
   },
