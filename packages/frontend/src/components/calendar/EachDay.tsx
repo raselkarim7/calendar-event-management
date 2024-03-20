@@ -1,4 +1,4 @@
-import { DayNameType } from '@/types';
+import { DayNameType, WeeklyEventsByDateInterface } from '@/types';
 
 import {
   StyledEachDayContainer,
@@ -9,14 +9,16 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setEventForm } from '@/features/appSlice';
 import { addHoursToDate, initialEventFormObj } from '@/utils';
+import { Fragment } from 'react/jsx-runtime';
 
 interface PropsInterface {
   dayName: DayNameType;
+  weeklyEventsByDate: WeeklyEventsByDateInterface;
 }
 
 const twentyFourHours = Array.from(Array(24)).map((_, i) => i);
 
-const EachDay = ({ dayName }: PropsInterface) => {
+const EachDay = ({ dayName, weeklyEventsByDate }: PropsInterface) => {
   const dispatch = useAppDispatch();
   const { fullWeekObj } = useAppSelector(state => state.app);
 
@@ -50,29 +52,24 @@ const EachDay = ({ dayName }: PropsInterface) => {
                 );
               }}
             >
-              {Math.random() > 0.7 && (
-                <StyledChips
-                  ownerState={{}}
-                  onClick={e => {
-                    e.stopPropagation();
-                  }}
-                >
-                  Hell is empty and all the devils are here.
-                  <div>{getMockHourRange(hour)}</div>
-                </StyledChips>
-              )}
+              {weeklyEventsByDate[fullWeekObj[dayName].onlyDateStr].map(chipItem => {
+                if (chipItem.isFullday || (chipItem.startTime && new Date(chipItem.startTime).getHours() !== hour)) {
+                  return <Fragment key={chipItem._id}></Fragment>;
+                }
 
-              {Math.random() > 0.6 && (
-                <StyledChips
-                  ownerState={{}}
-                  onClick={e => {
-                    e.stopPropagation();
-                  }}
-                >
-                  All theory is gray my friend, but the golden tree of life springs ever green.
-                  <div>{getMockHourRange(hour)}</div>
-                </StyledChips>
-              )}
+                return (
+                  <StyledChips
+                    key={chipItem._id}
+                    ownerState={{}}
+                    onClick={e => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    {chipItem.title}
+                    <div>{getMockHourRange(hour)}</div>
+                  </StyledChips>
+                );
+              })}
               <div style={{ width: '100%', height: '15px' }}>
                 {/* Empty space for opening add event modal while too many notes  */}
               </div>

@@ -12,18 +12,22 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { StyledChips } from './Styled/StyledEachDay';
 import { setEventForm } from '@/features/appSlice';
+import { WeeklyEventsByDateInterface } from '@/types';
+import { Fragment } from 'react/jsx-runtime';
 
 const fullDayEventsDesign = { bgColor: customColors.chipTealishBlue, color: customColors.white, fullWidth: true };
-
 const getColor = (isToday: boolean) => (isToday ? customColors.brightBlue : customColors.paleSky);
 
-const DaysHeader = () => {
+interface PropsInterface {
+  weeklyEventsByDate: WeeklyEventsByDateInterface;
+}
+const DaysHeader = ({ weeklyEventsByDate }: PropsInterface) => {
   const { fullWeekObj } = useAppSelector(state => state.app);
   const dispatch = useAppDispatch();
 
   return (
     <StyledDaysHeaderContainer>
-      {SEVEN_DAYS.map((dayName, index) => (
+      {SEVEN_DAYS.map(dayName => (
         <StyledDayLabelAndFullDayContainer key={dayName}>
           <StyledDayLabel>
             <Typography variant='body1' color={getColor(fullWeekObj[dayName].isToday)}>
@@ -48,37 +52,22 @@ const DaysHeader = () => {
               );
             }}
           >
-            {index % 3 === 0 && (
-              <StyledChips
-                ownerState={fullDayEventsDesign}
-                onClick={e => {
-                  e.stopPropagation();
-                }}
-              >
-                Full day Event Title One
-              </StyledChips>
-            )}
-
-            {index % 2 === 0 && (
-              <>
+            {weeklyEventsByDate[fullWeekObj[dayName].onlyDateStr].map(chipItem => {
+              if (!chipItem.isFullday) {
+                return <Fragment key={chipItem._id}></Fragment>;
+              }
+              return (
                 <StyledChips
+                  key={chipItem._id}
                   ownerState={fullDayEventsDesign}
                   onClick={e => {
                     e.stopPropagation();
                   }}
                 >
-                  Full day Event Title Two
+                  {chipItem.title}
                 </StyledChips>
-                <StyledChips
-                  ownerState={fullDayEventsDesign}
-                  onClick={e => {
-                    e.stopPropagation();
-                  }}
-                >
-                  Full day Event Title Three
-                </StyledChips>
-              </>
-            )}
+              );
+            })}
           </StyledFullDayEventsContainer>
         </StyledDayLabelAndFullDayContainer>
       ))}

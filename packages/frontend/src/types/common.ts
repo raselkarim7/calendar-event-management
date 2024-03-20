@@ -29,8 +29,13 @@ export interface CalendarEventPayloadInterface {
 
 interface EachDayInterface {
   date: Date;
+  onlyDateStr: string;
   isToday: boolean;
 }
 export interface FullWeekObjInterface {
   [key: string]: EachDayInterface;
+}
+
+export interface WeeklyEventsByDateInterface {
+  [key: string]: CalendarEventInterface[];
 }

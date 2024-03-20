@@ -1,4 +1,4 @@
-import type { DayNameType, FullWeekObjInterface } from '@/types';
+import type { CalendarEventInterface, DayNameType, FullWeekObjInterface, WeeklyEventsByDateInterface } from '@/types';
 import { AppInitialStateInterface } from './types/app';
 import dayjs from 'dayjs';
 
@@ -65,6 +65,7 @@ export const getFullWeekObjByCurrentDate = (currentDateStr: string): FullWeekObj
 
     fullWeekObj[SEVEN_DAYS[idx]] = {
       date: eachDate,
+      onlyDateStr: getOnlyDateString(eachDate),
       isToday: eachDate.toLocaleDateString() === today.toLocaleDateString(),
     };
   }
@@ -80,4 +81,38 @@ export const addHoursToDate = (date: Date, hours: number, minutes = 0) => {
   const dateStr = getOnlyDateString(date);
   const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   return dayjs(`${dateStr}T${timeStr}`).toISOString();
+};
+
+const isInBetween = (firstDay: string, lastDay: string, givenDate: string) => {
+  let yes = false;
+  if (givenDate >= firstDay && givenDate <= lastDay) {
+    yes = true;
+  }
+  return yes;
+};
+
+export const getWeeklyEventsByDate = (
+  fullWeekObj: FullWeekObjInterface,
+  data: CalendarEventInterface[],
+): WeeklyEventsByDateInterface => {
+  const weeklyEventsByDate: WeeklyEventsByDateInterface = {};
+  for (const key in fullWeekObj) {
+    weeklyEventsByDate[fullWeekObj[key].onlyDateStr] = [];
+  }
+  for (const item of data) {
+    const dayStr = getOnlyDateString(item.startDate);
+    if (isInBetween(fullWeekObj.SUN.onlyDateStr, fullWeekObj.SAT.onlyDateStr, dayStr)) {
+      weeklyEventsByDate[dayStr] = [...weeklyEventsByDate[dayStr], item];
+      if (item.isRepeat) {
+        const repeatAfter = item.repeatAfter ?? 0;
+        for (let i = repeatAfter; i < 7; i = i + repeatAfter) {
+          const newDayStr = getOnlyDateString(dayjs(dayStr).add(i, 'day').toDate());
+          if (isInBetween(fullWeekObj.SUN.onlyDateStr, fullWeekObj.SAT.onlyDateStr, newDayStr)) {
+            weeklyEventsByDate[newDayStr] = [...weeklyEventsByDate[newDayStr], item];
+          }
+        }
+      }
+    }
+  }
+  return weeklyEventsByDate;
 };
