@@ -14,7 +14,7 @@ const StyledTimeIndicator = styled('div')<{ ownerState: TimeIndicatorOwerStateIn
   marginTop: '-5px',
   '&::before': {
     color: theme.app.color.paleSky,
-    content: `'${ownerState.hour.toString().padStart(2, '0')} ${ownerState.hour < 12 ? 'AM' : 'PM'}'`,
+    content: `'${(ownerState.hour > 12 ? ownerState.hour - 12 : ownerState.hour).toString().padStart(2, '0')} ${ownerState.hour < 12 ? 'AM' : 'PM'}'`,
     marginLeft: '-50px',
     fontSize: '12px',
     display: 'inline-block',

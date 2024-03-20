@@ -1,6 +1,15 @@
-import { AppInitialStateInterface } from '@/types/app';
-import { getFullWeekObjByCurrentDate, initialEventFormObj, initialEventPopOverObj } from '@/utils';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { calendarEventsApi } from '@/services';
+import { WeeklyEventsByDateInterface } from '@/types';
+import { AppInitialStateInterface, AppStateType } from '@/types/app';
+import {
+  getFullWeekObjByCurrentDate,
+  getOnlyDateString,
+  initialEventFormObj,
+  initialEventPopOverObj,
+  isInBetween,
+} from '@/utils';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
 
 const initialState: AppInitialStateInterface = {
   counter: 0,
@@ -35,6 +44,33 @@ const appSlice = createSlice({
     },
   },
 });
+
+export const getWeeklyEventsByDate = createSelector(
+  calendarEventsApi.endpoints.getCalenderEvents.select({}),
+  (state: AppStateType) => state.app.fullWeekObj,
+  ({ data = [] }, fullWeekObj) => {
+    const weeklyEventsByDate: WeeklyEventsByDateInterface = {};
+    for (const key in fullWeekObj) {
+      weeklyEventsByDate[fullWeekObj[key].onlyDateStr] = [];
+    }
+    for (const item of data) {
+      const dayStr = getOnlyDateString(item.startDate);
+      if (isInBetween(fullWeekObj.SUN.onlyDateStr, fullWeekObj.SAT.onlyDateStr, dayStr)) {
+        weeklyEventsByDate[dayStr] = [...weeklyEventsByDate[dayStr], item];
+        if (item.isRepeat) {
+          const repeatAfter = item.repeatAfter ?? 0;
+          for (let i = repeatAfter; i < 7; i = i + repeatAfter) {
+            const newDayStr = getOnlyDateString(dayjs(dayStr).add(i, 'day').toDate());
+            if (isInBetween(fullWeekObj.SUN.onlyDateStr, fullWeekObj.SAT.onlyDateStr, newDayStr)) {
+              weeklyEventsByDate[newDayStr] = [...weeklyEventsByDate[newDayStr], item];
+            }
+          }
+        }
+      }
+    }
+    return weeklyEventsByDate;
+  },
+);
 
 export const { increment, decrement, setAppDate, setEventForm, setEventFormsVisibility, setEventPopOver } =
   appSlice.actions;

@@ -1,4 +1,4 @@
-import type { CalendarEventInterface, DayNameType, FullWeekObjInterface, WeeklyEventsByDateInterface } from '@/types';
+import type { CalendarEventInterface, DayNameType, FullWeekObjInterface } from '@/types';
 import { AppInitialStateInterface } from './types/app';
 import dayjs from 'dayjs';
 
@@ -112,7 +112,7 @@ export const getTimeRange = (param: CalendarEventInterface) => {
   return '';
 };
 
-const isInBetween = (firstDay: string, lastDay: string, givenDate: string) => {
+export const isInBetween = (firstDay: string, lastDay: string, givenDate: string) => {
   let yes = false;
   if (givenDate >= firstDay && givenDate <= lastDay) {
     yes = true;
@@ -120,7 +120,8 @@ const isInBetween = (firstDay: string, lastDay: string, givenDate: string) => {
   return yes;
 };
 
-export const getWeeklyEventsByDate = (
+/* 
+const getWeeklyEventsByDateBackup = (
   fullWeekObj: FullWeekObjInterface,
   data: CalendarEventInterface[],
 ): WeeklyEventsByDateInterface => {
@@ -145,3 +146,4 @@ export const getWeeklyEventsByDate = (
   }
   return weeklyEventsByDate;
 };
+*/

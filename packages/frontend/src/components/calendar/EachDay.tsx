@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { DayNameType, WeeklyEventsByDateInterface } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { setEventForm, setEventPopOver } from '@/features/appSlice';
-import { addHoursToDate, initialEventFormObj } from '@/utils';
+import { addHoursToDate, getTimeRange, initialEventFormObj } from '@/utils';
 
 import {
   StyledEachDayContainer,
@@ -23,13 +23,6 @@ const twentyFourHours = Array.from(Array(24)).map((_, i) => i);
 const EachDay = ({ dayName, weeklyEventsByDate, handlePopOver }: PropsInterface) => {
   const dispatch = useAppDispatch();
   const { fullWeekObj } = useAppSelector(state => state.app);
-
-  const getMockHourRange = (hour: number) => {
-    const firstPart = `${hour.toString().padStart(2, '0')}:00`;
-    const copyHour = hour + 1;
-    const secondPart = `${copyHour.toString().padStart(2, '0')}:00`;
-    return `${firstPart} - ${secondPart}`;
-  };
 
   return (
     <>
@@ -75,7 +68,7 @@ const EachDay = ({ dayName, weeklyEventsByDate, handlePopOver }: PropsInterface)
                     }}
                   >
                     {chipItem.title}
-                    <div>{getMockHourRange(hour)}</div>
+                    <div>{getTimeRange(chipItem)}</div>
                   </StyledChips>
                 );
               })}
