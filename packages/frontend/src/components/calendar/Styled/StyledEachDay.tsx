@@ -36,7 +36,7 @@ const StyledEachDayContainer = styled('div')(({ theme }) => ({
 const StyledHourlyEventContainer = styled('div')(({ theme }) => ({
   borderTop: '1px solid',
   borderColor: theme.app.color.moonMist,
-  height: '80px',
+  height: '50px',
   overflowY: 'auto',
   width: '100%',
   wordBreak: 'break-all',

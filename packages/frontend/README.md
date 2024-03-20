@@ -5,6 +5,7 @@
 👉 Frontend frameworks
 
 - React v18.2.0
+- RTK Query (Redux Toolkit Query)
 - TypeScript v5.2.2
 - Material UI ( MUI 5 )
 
@@ -13,16 +14,12 @@
 - ESlint
 - Prettier
 
+```sh
+npm install
+```
 
-<br />
+```sh
+npm start
+```
 
-**Just completed the design of frontend.** 
-**Functionalities will be added later**
 
-### Previous Condition:
-![alt text](image.png)
-
-<br />
-
-### Current condition
-![alt text](image-1.png)

@@ -1,7 +1,10 @@
 
 # Calendar Events Management 
 
-### Clone this repository at first and run below commands.
+## Deployed in Vercel
+### Please Check this: https://calendar-event-management-ye5v.vercel.app/
+
+### Clone this repository at first and run below commands in the Root Directory
 ```sh
 npm install
 ```
@@ -22,15 +25,29 @@ Frontend: http://localhost:3000/
 
 ### Note
 - **Backend: Implementation is done**
-- **Frontend: Just completed the design. Functionalities will be added later.** 
+- **Frontend: Implementation is done** 
 
-![alt text](image.png)
+### Backend run guide.
+**If you want to run the backend application on local machine**
+- You have to edit [packages\backend\.env](\.env)
+- Here have to uncomment the local db url and comment the mongo db atlas like below
+```sh
+MONGO_URI=mongodb://127.0.0.1:27017/calender_events_db
+# MONGO_URI=mongodb+srv://raselkarim7:0Sn8W8sLfyP5gakG@calendereventsdb.trsgqph.mongodb.net/?retryWrites=true&w=majority&appName=CalenderEventsDB
+```
+
+
+
 
 ### Tools
 - **husky** added 
 - husky will run linter in **Frontend** part while **pre-commit**, and check the linter  
 - Also husky will build the **Frontend** while **pre-push** and won't push in case of build failure. 
 
+### UI Snapshots
 
-### Happy to share that, Only frontend is hosted on vercel. 
-**Please Check this: https://calendar-event-management-ye5v.vercel.app/**
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
