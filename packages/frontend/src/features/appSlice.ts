@@ -71,8 +71,9 @@ export const getWeeklyEventsByDate = createSelector(
         if (item.isRepeat) {
           let repeatStartDate = getOnlyDateString(item.startDate);
           while (
-            repeatStartDate < fullWeekObj.SUN.onlyDateStr ||
-            (repeatStartDate >= fullWeekObj.SUN.onlyDateStr && repeatStartDate <= fullWeekObj.SAT.onlyDateStr)
+            (repeatStartDate < fullWeekObj.SUN.onlyDateStr ||
+              (repeatStartDate >= fullWeekObj.SUN.onlyDateStr && repeatStartDate <= fullWeekObj.SAT.onlyDateStr)) &&
+            (!item.endDate || (item.endDate && repeatStartDate <= getOnlyDateString(item.endDate)))
           ) {
             const dayStr = repeatStartDate; // dayStr
             if (repeatStartDate >= fullWeekObj.SUN.onlyDateStr && repeatStartDate <= fullWeekObj.SAT.onlyDateStr) {

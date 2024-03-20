@@ -339,6 +339,7 @@ const EventForm = (props: PropsInterface) => {
           <StyledRepeatAfterContainer>
             <div>Repeat After:</div>
             <TextField
+              disabled={!localFormData.isRepeat}
               id='event-description'
               placeholder='Number'
               value={localFormData.repeatAfter ? localFormData.repeatAfter.toString() : ''}
@@ -381,6 +382,7 @@ const EventForm = (props: PropsInterface) => {
         <StyledFlexContainer>
           <div>End Date:</div>
           <RegularDatePicker
+            clearDate={true}
             minDate={getOnlyDateString(localFormData.startDate)}
             date={localFormData.endDate ? getOnlyDateString(localFormData.endDate) : ''}
             onChange={val => {
@@ -388,6 +390,11 @@ const EventForm = (props: PropsInterface) => {
                 setLocalFormdata(prev => ({
                   ...prev,
                   endDate: val.toDate(),
+                }));
+              } else {
+                setLocalFormdata(prev => ({
+                  ...prev,
+                  endDate: undefined,
                 }));
               }
             }}

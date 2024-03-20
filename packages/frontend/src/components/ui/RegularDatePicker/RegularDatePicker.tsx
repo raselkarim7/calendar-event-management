@@ -26,6 +26,7 @@ interface PropsInterface {
   isDisableFuture?: boolean;
   maxDate?: string;
   minDate?: string;
+  clearDate?: boolean;
 }
 const RegularDatePicker = ({
   date,
@@ -34,6 +35,7 @@ const RegularDatePicker = ({
   isDisableFuture = false,
   maxDate,
   minDate,
+  clearDate = false,
 }: PropsInterface) => {
   return (
     <StyledDatePickerWrapper
@@ -72,6 +74,9 @@ const RegularDatePicker = ({
           onKeyDown: e => {
             e.preventDefault();
           },
+        },
+        actionBar: {
+          actions: clearDate ? ['clear'] : [],
         },
       }}
     />
