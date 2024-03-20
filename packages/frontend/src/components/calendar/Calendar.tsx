@@ -18,9 +18,9 @@ const Calendar = () => {
 
   const [popOverAnchorEl, setPopOverAnchorEl] = useState<HTMLDivElement | null>(null);
 
-  const { data } = useGetCalenderEventsQuery({});
+  const { data } = useGetCalenderEventsQuery({}, { refetchOnMountOrArgChange: true });
 
-  // console.log('Calendar data ---->>> ', data);
+  //  console.log('Calendar data ---->>> ', data);
   // console.log('Calendar error ::::>> ', error);
 
   const headerRef = useRef<HTMLDivElement>(null);

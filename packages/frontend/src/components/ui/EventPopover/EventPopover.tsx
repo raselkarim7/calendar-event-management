@@ -9,8 +9,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import dayjs from 'dayjs';
 
 import { customColors } from '@/configs';
-import { getTimeRange } from '@/utils';
-import { useAppSelector } from '@/hooks';
+import { getTimeRange, initialEventFormObj } from '@/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useRemoveCalenderEventMutation } from '@/services';
+import { setEventForm } from '@/features/appSlice';
+import { toast } from 'react-toastify';
+import { UiBackDrop } from '..';
 
 interface EventPopoverInterface {
   anchorEl: HTMLDivElement | null;
@@ -21,15 +25,38 @@ const EventPopover = ({ anchorEl, onClosePopOver }: EventPopoverInterface) => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  const [removeCalenderEvents, { isLoading }] = useRemoveCalenderEventMutation();
+  const dispatch = useAppDispatch();
   const eventPopOver = useAppSelector(state => state.app.eventPopOver);
 
   const handleClose = () => {
     onClosePopOver();
   };
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    dispatch(
+      setEventForm({
+        ...initialEventFormObj,
+        mode: 'EDIT',
+        data: {
+          ...eventPopOver.data,
+          startDate: new Date(eventPopOver.data.startDate),
+          endDate: eventPopOver.data.endDate ? new Date(eventPopOver.data.endDate) : undefined,
+        },
+      }),
+    );
+    onClosePopOver();
+  };
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await removeCalenderEvents(eventPopOver.data._id);
+      toast.success('Event removed successfully');
+      onClosePopOver();
+    } catch (error) {
+      toast.success('Event remove failed');
+    }
+  };
 
   return (
     <>
@@ -109,6 +136,7 @@ const EventPopover = ({ anchorEl, onClosePopOver }: EventPopoverInterface) => {
             </Typography>
           </CardContent>
         </Card>
+        <UiBackDrop open={isLoading} />
       </Popover>
     </>
   );

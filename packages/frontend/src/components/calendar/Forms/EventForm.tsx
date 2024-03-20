@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 
 import { AppInitialStateInterface, CalendarEventPayloadInterface } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { usePostCalenderEventMutation } from '@/services';
+import { usePostCalenderEventMutation, useUpdateCalenderEventMutation } from '@/services';
 import { setEventFormsVisibility } from '@/features/appSlice';
 import { getOnlyDateString, initialEventFormObj } from '@/utils';
 
@@ -62,6 +62,7 @@ const EventForm = (props: PropsInterface) => {
   const dispatch = useAppDispatch();
 
   const [addEvent, addEventService] = usePostCalenderEventMutation();
+  const [updateEvent, updateEventService] = useUpdateCalenderEventMutation();
 
   const [localFormData, setLocalFormdata] = useState<LocalFormDataInterface>(initialFormState);
   const [localErrors, setLocalErrors] = useState<LocalFormValidationErrorsInterface>({
@@ -151,7 +152,7 @@ const EventForm = (props: PropsInterface) => {
     if (localFormData.isRepeat) {
       if (!localFormData.repeatAfter) {
         hasError = true;
-        errorsObj.repeatAfter = 'Repeat after required';
+        errorsObj.repeatAfter = 'Value required';
       }
     }
     setLocalErrors(errorsObj);
@@ -163,7 +164,7 @@ const EventForm = (props: PropsInterface) => {
     if (isValid()) {
       return;
     }
-
+    console.log('localFormData: ', localFormData);
     const payload: CalendarEventPayloadInterface = {
       title: localFormData.title,
       startDate: localFormData.startDate.toISOString(),
@@ -177,12 +178,25 @@ const EventForm = (props: PropsInterface) => {
       endDate: localFormData.endDate ? localFormData.endDate.toISOString() : '',
     };
 
-    try {
-      await addEvent(payload).unwrap();
-      toast.success('Event added successfully.');
-      dispatch(setEventFormsVisibility('INVISIBLE'));
-    } catch (error) {
-      toast.error('Adding event failed.');
+    if (eventForm.mode === 'CREATE') {
+      try {
+        await addEvent(payload).unwrap();
+        toast.success('Event added successfully.');
+        dispatch(setEventFormsVisibility('INVISIBLE'));
+      } catch (error) {
+        toast.error('Adding event failed.');
+      }
+    } else if (eventForm.mode === 'EDIT') {
+      try {
+        await updateEvent({
+          id: eventForm.data._id,
+          payload,
+        }).unwrap();
+        toast.success('Event updated successfully.');
+        dispatch(setEventFormsVisibility('INVISIBLE'));
+      } catch (error) {
+        toast.error('Update event failed.');
+      }
     }
   };
 
@@ -331,7 +345,7 @@ const EventForm = (props: PropsInterface) => {
               variant='standard'
               type='text'
               size='small'
-              sx={{ width: '110px' }}
+              sx={{ minWidth: '110px', maxWidth: '140px' }}
               error={Boolean(localErrors.repeatAfter)}
               helperText={localErrors.repeatAfter}
               onChange={handleRepeatAfterChange}
@@ -392,7 +406,7 @@ const EventForm = (props: PropsInterface) => {
           </Button>
         </StyledFlexContainer>
       </StyledSumitButtonsContainer>
-      <UiBackDrop open={addEventService.isLoading} />
+      <UiBackDrop open={addEventService.isLoading || updateEventService.isLoading} />
     </StyledFormContainer>
   );
 };
