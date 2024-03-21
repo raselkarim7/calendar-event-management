@@ -8,7 +8,7 @@ const connectDB = require('./db/connect')
 const calenderEventsRoutes = require('./routes/calendar-events')
 
 const notFound = require('./middleware/not-found')
-const errorHandlerMiddleware = rreequire('./middleware/error-handler')
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 
 
