@@ -2,11 +2,7 @@ import { styled } from '@mui/material';
 
 const StyledModalContainer = styled('div')(({ theme }) => ({
   background: theme.app.color.white,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: 'min(70vw, 450px)',
+  maxWidth: '450px',
 }));
 
 const StyledDialogHeader = styled('div')(({ theme }) => ({
@@ -23,7 +19,6 @@ const StyledDialogHeader = styled('div')(({ theme }) => ({
     cursor: 'pointer',
     color: theme.app.color.blackEel,
     padding: '2px',
-
     '&:hover': {
       background: theme.app.color.moonMist,
       borderRadius: '50%',

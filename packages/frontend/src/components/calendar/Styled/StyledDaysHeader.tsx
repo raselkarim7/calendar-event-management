@@ -31,10 +31,11 @@ const StyledDayLabel = styled('div')(() => ({
 
 const StyledFullDayEventsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'column-reverse',
   gap: '4px',
-  justifyContent: 'center',
-  alignItems: 'center',
+  maxHeight: '150px',
+  overflowY: 'auto',
+  scrollbarWidth: 'thin',
   borderLeft: `1px solid ${theme.app.color.moonMist}`,
   borderBottom: `1px solid ${theme.app.color.moonMist}`,
   padding: '5px',
@@ -51,6 +52,9 @@ const StyledTypographyDate = styled(Typography)<{ ownerState: StyledTypographyDa
     '&:hover': {
       background: ownerState.isToday ? theme.app.color.brightBlue : theme.app.color.alabaster,
       borderRadius: '100%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14px',
     },
   }),
 );

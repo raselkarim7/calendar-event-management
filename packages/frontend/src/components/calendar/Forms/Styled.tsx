@@ -34,10 +34,14 @@ const StyledTimePickersContainer = styled('div')(() => ({
   gap: '16px',
 }));
 
-const StyledRepeatContainer = styled('div')(() => ({
+const StyledRepeatContainer = styled('div')(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'row',
   gap: '10px',
   justifyContent: 'space-between',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+  },
   '& > div:nth-of-type(1)': {
     minWidth: '100px',
   },

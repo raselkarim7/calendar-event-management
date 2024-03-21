@@ -41,6 +41,9 @@ const StyledHourlyEventContainer = styled('div')(({ theme }) => ({
   width: '100%',
   wordBreak: 'break-all',
   padding: '5px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '2px',
+  },
   scrollbarWidth: 'none',
   '&:hover': {
     scrollbarWidth: 'thin',
@@ -51,6 +54,7 @@ const StyledHourlyEventContainer = styled('div')(({ theme }) => ({
 }));
 
 const StyledChips = styled('div')<{ ownerState: StyledChipsStateInterface }>(({ theme, ownerState }) => ({
+  wordBreak: 'break-word',
   borderRadius: '3px',
   cursor: 'pointer',
   color: ownerState.color ? ownerState.color : theme.app.color.blackEel,
@@ -59,6 +63,9 @@ const StyledChips = styled('div')<{ ownerState: StyledChipsStateInterface }>(({ 
   fontSize: '13px',
   height: 'max-content',
   width: ownerState.fullWidth ? '100%' : 'calc(100% - 10px)',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '12px',
+  },
   '& > div': {
     fontWeight: 'bold',
   },
