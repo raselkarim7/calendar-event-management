@@ -16,8 +16,9 @@ export default createTheme({
   app: appCustomTheme,
   breakpoints: {
     values: {
-      md: 1280,
-      lg: 1366,
+      sm: 600,
+      md: 900,
+      lg: 1200,
     },
   },
 
