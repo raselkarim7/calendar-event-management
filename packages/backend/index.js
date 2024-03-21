@@ -22,9 +22,6 @@ dotenv.config({ path: ".env" });
 
 // routes
 app.use('/api/v1', calenderEventsRoutes)
-app.get('/', (req, res) => {
-    res.send("Home route")
-})
 
 // middleware 
 app.use(notFound)
