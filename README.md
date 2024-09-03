@@ -2,7 +2,7 @@
 # Calendar Events Management 
 
 ## Deployed in Vercel
-### Please Check this: https://calendar-event-management-ye5v.vercel.app/
+### Please Check this: https://calendar-event-management-sand.vercel.app/
 
 ### Clone this repository at first and run below commands in the Root Directory
 ```sh
